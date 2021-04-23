@@ -1,4 +1,5 @@
 from django.db import models
+#crea la base de datos
 
 class Bodega(models.Model):
     id_bodega = models.IntegerField(primary_key=True)
