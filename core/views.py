@@ -51,7 +51,7 @@ def listado_tipo():
         lista.append(fila)
     
     return lista
-
+#crea un nuevo usuario
 def agregar_usuario(nom_usuario, clave, tipo_usuario):
     django_cursor = connection.cursor()
     cursor = django_cursor.connection.cursor() # cursor que permite llamar al proceso directamente

@@ -1,6 +1,7 @@
 from django.contrib import admin
 from .models import Bodega, Cliente, Cocina, Comanda, Departamento, Empleado,\
-     EstadoHabitacion, Factura, HostalClarita, Huesped, OrdenCompra, Pedido, Producto ,Proveedor, TipoHabitacion, Minuta, Usuario, TipoUsuario
+     EstadoHabitacion, Factura, HostalClarita, Huesped, OrdenCompra, Pedido, Producto \
+     ,Proveedor, TipoHabitacion, Minuta, Usuario, TipoUsuario
 # Register your models here para hacer un CRUD en el area administrador.
 
 admin.site.register(Bodega)
