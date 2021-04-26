@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio</title>
+</head>
+<body>
+    <h1>Hostal Doña Clarita</h1>
+    <form action=""class="inicio" method="POST">
+
+        {% csrf_token %}
+
+        {{form}}
+
+        <button type="submit" id="btnEnviar" class="button">Entrar</button>
+    </form> 
+    <nav id="nav">
+        <ul>
+
+        </ul>
+        {% if user.is_authenticated %}
+        <li>
+            <a href="{% url 'logout' %}">Cerrar sesion</a>
+        </li>
+        <li>
+            <a href="#">{{ user.username }}</a>
+        </li>
+        {% else %}
+        <li>
+            <a href="{% url 'login' %}">iniciar sesion</a>
+        </li>
+        {% endif %}
+
+    </nav> 
+    
+</body>
+</html>

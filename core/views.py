@@ -1,8 +1,23 @@
+from django.http.response import HttpResponse
 from django.shortcuts import render
 from django.db import connection #traera la conexion de oracle y los procesos almacenados
 import cx_Oracle #libreria de oracle
+from .forms import InicioForm
 
 # Create your views here.
+def home(request):#la pagina de inicio
+    data = {
+        'form' : InicioForm() 
+    }
+    return render(request,'core/home.html',data)
+
+
+def proveedor(request):#la pagina del proveedor
+    return render(request,'core/proveedor.html')
+
+def empleado(request):#la pagina de empleado
+    return render(request,'core/empleado.html')
+
 
 def usuarios(request):
     #data sirve para pasar datos
