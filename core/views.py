@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.db import connection #traera la conexion de oracle y los procesos almacenados
 import cx_Oracle #libreria de oracle
 from .forms import InicioForm
-
+#prueba test
 # Create your views here.
 def home(request):#la pagina de inicio
     data = {
