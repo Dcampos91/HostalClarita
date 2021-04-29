@@ -8,5 +8,7 @@ urlpatterns = [
     path('usuario', usuarios, name='usuarios'),
     path('empleado', empleado, name='empleado'),
     path('proveedor', proveedor, name='proveedor'),
+    path('eliminar', eliminar_usuario, name='eliminar'),
+    
     
 ]
