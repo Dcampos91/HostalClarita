@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.db import connection #traera la conexion de oracle y los procesos almacenados
 import cx_Oracle #libreria de oracle
 from .forms import InicioForm
-#prueba test
+
 # Create your views here.
 def home(request):#la pagina de inicio
     data = {
@@ -18,13 +18,13 @@ def proveedor(request):#la pagina del proveedor
 def empleado(request):#la pagina de empleado
     return render(request,'core/empleado.html')
 
-
+#agrega un usuario
 def usuarios(request):
     #data sirve para pasar datos
     data = {
         'usuarios':listado_usuarios(),
-        'tipousuario':listado_tipo(),
-    }
+        'tipousuario':listado_tipo(),       
+    }   
     #guarda los usuarios
     if request.method == 'POST':
         nom_usuario = request.POST.get('nombre')
@@ -38,6 +38,25 @@ def usuarios(request):
             data['mensaje'] = 'no se ha podido guardar'
 
     return render(request, 'core/usuarios.html', data)
+
+
+#elimina los usuarios   
+def eliminar_usuario(request):
+    #data sirve para pasar datos
+    data = {
+        'usuarios':listado_usuarios(),
+        'tipousuario':listado_tipo(),                
+    }
+    if request.method == 'POST':
+        nom_usuario = request.POST.get('nombre_eliminar') 
+        salida = eliminar(nom_usuario)
+        if salida == 1:
+            data['mensaje1'] = 'eliminado correctamente'
+            data['usuarios'] = listado_usuarios()
+        else:
+            data['mensaje1'] = 'no se ha podido guardar'
+
+    return render(request, 'core/eliminar.html', data)
 
 # Crear metodo para el listado
 
@@ -73,4 +92,20 @@ def agregar_usuario(nom_usuario, clave, tipo_usuario):
     salida = cursor.var(cx_Oracle.NUMBER)
     cursor.callproc('SP_AGREGAR_USUARIO',[nom_usuario, clave, tipo_usuario, salida])
     return salida.getvalue()
+
+
+def eliminar(nom_usuario):
+    django_cursor = connection.cursor()
+    cursor = django_cursor.connection.cursor()
+    salida = cursor.var(cx_Oracle.NUMBER)
+    cursor.callproc('SP_ELIMINAR_USUARIO',[nom_usuario, salida])
+    return salida.getvalue()
+
+
+
+
+
+
+
+
 
