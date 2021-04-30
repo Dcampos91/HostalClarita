@@ -52,11 +52,32 @@ def eliminar_usuario(request):
         salida = eliminar(nom_usuario)
         if salida == 1:
             data['mensaje1'] = 'eliminado correctamente'
-            data['usuario'] = listado_usuarios()
+            data['usuarios'] = listado_usuarios()
         else:
             data['mensaje1'] = 'no se ha podido guardar'
 
     return render(request, 'core/eliminar.html', data)
+
+def crear_cliente(request):
+    #data sirve para pasar datos
+    data = {
+        'usuarios':listado_usuarios(),
+        'tipousuario':listado_tipo(),       
+    }   
+    #guarda los usuarios
+    if request.method == 'POST':
+        nom_usuario = request.POST.get('nombre')
+        clave = request.POST.get('contraseña')
+        tipo_usuario = request.POST.get('tipo')
+        salida = agregar_usuario(nom_usuario, clave, tipo_usuario)
+        if salida == 1:
+            data['mensaje'] = 'agregado correctamente'
+            data['usuarios'] = listado_usuarios()
+        else:
+            data['mensaje'] = 'no se ha podido guardar'
+
+    return render(request, 'core/usuarios.html', data)
+
 
 # Crear metodo para el listado
 
