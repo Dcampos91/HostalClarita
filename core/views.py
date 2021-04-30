@@ -3,6 +3,7 @@ from django.shortcuts import render
 from django.db import connection #traera la conexion de oracle y los procesos almacenados
 import cx_Oracle #libreria de oracle
 from .forms import InicioForm
+from  django.contrib.auth.decorators import login_required, permission_required
 
 # Create your views here.
 def home(request):#la pagina de inicio
@@ -18,6 +19,7 @@ def proveedor(request):#la pagina del proveedor
 def empleado(request):#la pagina de empleado
     return render(request,'core/empleado.html')
 
+@login_required()
 #agrega un usuario
 def usuarios(request):
     #data sirve para pasar datos
@@ -39,7 +41,7 @@ def usuarios(request):
 
     return render(request, 'core/usuarios.html', data)
 
-
+@login_required()
 #elimina los usuarios   
 def eliminar_usuario(request):
     #data sirve para pasar datos
