@@ -19,7 +19,7 @@ def proveedor(request):#la pagina del proveedor
 def empleado(request):#la pagina de empleado
     return render(request,'core/empleado.html')
 
-@login_required()
+#@login_required()
 #agrega un usuario
 def usuarios(request):
     #data sirve para pasar datos
@@ -41,7 +41,7 @@ def usuarios(request):
 
     return render(request, 'core/usuarios.html', data)
 
-@login_required()
+#@login_required()
 #elimina los usuarios   
 def eliminar_usuario(request):
     #data sirve para pasar datos
