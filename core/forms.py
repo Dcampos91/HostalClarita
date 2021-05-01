@@ -1,13 +1,14 @@
 from django import forms
+from django.forms import ModelForm
 from .models import Usuario
-from django.contrib.auth.forms import UserCreationForm
 
-class InicioForm(forms.ModelForm):
+
+class UsuarioForm(ModelForm):
 
 
     class Meta:
         model = Usuario
-        fields = ["nom_usuario","clave","tipo_usuario"]
+        fields = ["id_usuario","nom_usuario","clave","tipo_usuario"]
 
 
 

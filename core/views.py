@@ -1,133 +1,49 @@
-from django.http.response import HttpResponse
-from django.shortcuts import render
-from django.db import connection #traera la conexion de oracle y los procesos almacenados
-import cx_Oracle #libreria de oracle
-from .forms import InicioForm
-from  django.contrib.auth.decorators import login_required, permission_required
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import Usuario
+from .forms import UsuarioForm
+#crear vista
 
-# Create your views here.
 def home(request):#la pagina de inicio
-    data = {
-        'form' : InicioForm() 
+    return render(request,'core/home.html')
+
+def listado_usuario(request):
+    usuario = Usuario.objects.all()
+    data ={
+        'usuario':usuario
     }
-    return render(request,'core/home.html',data)
 
+    return render(request, 'core/listado_usuarios.html', data)
 
-def proveedor(request):#la pagina del proveedor
-    return render(request,'core/proveedor.html')
-
-def empleado(request):#la pagina de empleado
-    return render(request,'core/empleado.html')
-
-#@login_required()
-#agrega un usuario
-def usuarios(request):
-    #data sirve para pasar datos
+def nuevo_usuario(request):
     data = {
-        'usuarios':listado_usuarios(),
-        'tipousuario':listado_tipo(),       
-    }   
-    #guarda los usuarios
+        'form':UsuarioForm()
+    }
+
     if request.method == 'POST':
-        nom_usuario = request.POST.get('nombre')
-        clave = request.POST.get('contraseña')
-        tipo_usuario = request.POST.get('tipo')
-        salida = agregar_usuario(nom_usuario, clave, tipo_usuario)
-        if salida == 1:
-            data['mensaje'] = 'agregado correctamente'
-            data['usuarios'] = listado_usuarios()
-        else:
-            data['mensaje'] = 'no se ha podido guardar'
+        formulario = UsuarioForm(request.POST)
+        if formulario.is_valid():
+            formulario.save()
+            data['mensaje'] = "Guardado correctamente"
 
-    return render(request, 'core/usuarios.html', data)
+    return render(request, 'core/nuevo_usuario.html', data)
 
-#@login_required()
-#elimina los usuarios   
-def eliminar_usuario(request):
-    #data sirve para pasar datos
+def modificar_usuario(request, id_usuario):
+    usuario = get_object_or_404(Usuario, id_usuario=id_usuario)
     data = {
-        'usuarios':listado_usuarios(),
-        'tipousuario':listado_tipo(),                
+        'form': UsuarioForm(instance=usuario)
     }
     if request.method == 'POST':
-        nom_usuario = request.POST.get('nombre_eliminar') 
-        salida = eliminar(nom_usuario)
-        if salida == 1:
-            data['mensaje1'] = 'eliminado correctamente'
-            data['usuarios'] = listado_usuarios()
-        else:
-            data['mensaje1'] = 'no se ha podido guardar'
+        formulario = UsuarioForm(data=request.POST, instance=usuario, files=request.FILES)
+        if formulario.is_valid():
+            formulario.save()
+            return redirect(to="listado_usuario")
+        data["form"] = formulario    
+    return render(request, 'core/modificar.html', data)
 
-    return render(request, 'core/eliminar.html', data)
-
-def crear_cliente(request):
-    #data sirve para pasar datos
-    data = {
-        'usuarios':listado_usuarios(),
-        'tipousuario':listado_tipo(),       
-    }   
-    #guarda los usuarios
-    if request.method == 'POST':
-        nom_usuario = request.POST.get('nombre')
-        clave = request.POST.get('contraseña')
-        tipo_usuario = request.POST.get('tipo')
-        salida = agregar_usuario(nom_usuario, clave, tipo_usuario)
-        if salida == 1:
-            data['mensaje'] = 'agregado correctamente'
-            data['usuarios'] = listado_usuarios()
-        else:
-            data['mensaje'] = 'no se ha podido guardar'
-
-    return render(request, 'core/usuarios.html', data)
-
-
-# Crear metodo para el listado
-
-def listado_usuarios():
-    django_cursor = connection.cursor()
-    cursor = django_cursor.connection.cursor() # cursor que permite llamar al proceso directamente
-    out_cur = django_cursor.connection.cursor()
-
-    cursor.callproc("SP_LISTAR_USUARIOS",[out_cur])
-
-    lista = []#lista para recorrer el cursor
-    for fila in out_cur:
-        lista.append(fila)
-    
-    return lista
-
-def listado_tipo():
-    django_cursor = connection.cursor()
-    cursor = django_cursor.connection.cursor() # cursor que permite llamar al proceso directamente
-    out_cur = django_cursor.connection.cursor()
-
-    cursor.callproc("SP_LISTAR_TIPOUSUARIO",[out_cur])
-
-    lista = []#lista para recorrer el cursor
-    for fila in out_cur:
-        lista.append(fila)
-    
-    return lista
-#crea un nuevo usuario
-def agregar_usuario(nom_usuario, clave, tipo_usuario):
-    django_cursor = connection.cursor()
-    cursor = django_cursor.connection.cursor() # cursor que permite llamar al proceso directamente
-    salida = cursor.var(cx_Oracle.NUMBER)
-    cursor.callproc('SP_AGREGAR_USUARIO',[nom_usuario, clave, tipo_usuario, salida])
-    return salida.getvalue()
-
-
-def eliminar(nom_usuario):
-    django_cursor = connection.cursor()
-    cursor = django_cursor.connection.cursor()
-    salida = cursor.var(cx_Oracle.NUMBER)
-    cursor.callproc('SP_ELIMINAR_USUARIO',[nom_usuario, salida])
-    return salida.getvalue()
-
-
-
-
-
+def eliminar_usuario(request, id_usuario):
+    usuario = get_object_or_404(Usuario, id_usuario=id_usuario)
+    usuario.delete()
+    return redirect(to="listado_usuario")
 
 
 

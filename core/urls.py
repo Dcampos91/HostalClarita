@@ -4,11 +4,12 @@ from .views import *
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
-    path('',home, name="home"),
-    path('usuario', usuarios, name='usuarios'),
-    path('empleado', empleado, name='empleado'),
-    path('proveedor', proveedor, name='proveedor'),
-    path('eliminar', eliminar_usuario, name='eliminar'),
+    path('', home, name="home"),
+    path('listado-usuario', listado_usuario, name="listado_usuario"),
+    path('nuevo-usuario', nuevo_usuario, name="nuevo_usuario"),
+    path('modificar/<id_usuario>/', modificar_usuario, name="modificar_usuario"),
+    path('eliminar/<id_usuario>/', eliminar_usuario, name="eliminar_usuario"),
+  
     
     
 ]
