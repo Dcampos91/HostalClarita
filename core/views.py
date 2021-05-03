@@ -5,6 +5,7 @@ from django.contrib import messages #permite enviar mensajes
 from django.core.paginator import Paginator #para dividir las paginas con los usuarios agregados
 from django.http import Http404
 from django.contrib.auth import authenticate, login #autentica usuario
+#prueba de descarga
 
 #crear vista
 def home(request):#la pagina de inicio
