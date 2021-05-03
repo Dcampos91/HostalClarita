@@ -1,3 +1,24 @@
+{% block js %}
+<script>
+    function eliminarUsuario(id){
+        swal.fire({
+            "title": "¿Seguro que quieres eliminar?",
+            "text": "esta acción no se puede deshacer",
+            "icon": "warning",
+            "showCancelButton":true,
+            "cancelButtonText":"No, Cancelar",
+            "confirmButtonText":"Si, Eliminar",
+            "confirmButtonColor":"#dc3545"
+        })
+        .then(function(result) {
+            if(result.isConfirmed){
+                window.location.href = "/eliminar/"+id+"/"
+
+            }
+        })
+    }
+</script>
+{% endblock %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,18 +38,33 @@
             <th>Tipo de Usuario</th>
             <th>Opciones</th>
         </tr>
-        {% for u in usuario %}
+        {% for u in entity %}
         <tr>
             <td>{{ u.id_usuario }}</td>
             <td>{{ u.nom_usuario }}</td>
             <td>{{ u.tipo_usuario }}</td>            
             <td>
                 <a href="{% url 'modificar_usuario' u.id_usuario %}" class="btn btn-info btn-sm" >Modificar</a>
-                <a href="{% url 'eliminar_usuario' u.id_usuario %}" class="btn btn-danger btn-sm" >Eliminar</a>
+                <a href="#" onclick="eliminarUsuario({{ u.id_usuario }})" class="btn btn-danger btn-sm" >Eliminar</a>
             </td>
         </tr>
         {% endfor %}
     </table>
+    <div>
+        {% include 'core/paginator.html' %}
+    </div>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    {% if messages %}
+        {% for m in messages %}
+            <script>
+                swal.fire({
+                    "title": "Felicitaciones",
+                    "text": "{{m}}",
+                    "icon": "success"
+                })
+            </script>
+        {% endfor %}
+    {% endif %}
     
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>

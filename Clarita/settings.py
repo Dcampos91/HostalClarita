@@ -32,6 +32,8 @@ ALLOWED_HOSTS = []
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
+MESSAGE_STORE = "django.contrib.messages.storage.cookie.CookiesStorage"#activa los mensaje de avisos en django
+
 
 # Application definition
 
