@@ -1,23 +1,29 @@
+.container 
+{
+  width: auto;
+  height: auto;
+}
 
 
-
-
-
+#dropdownMenuLink
+{
+  border-radius: 20px;
+  background: #2E4172;
+  
+}
 
 
  #face
 {
   height: 60px;
   width: 60px;
-  margin-left: 15px;
-
 }
 
  #insta
 {
   height: 60px;
   width: 60px;
-  margin-left: 15px;
+  
 
 }
 
@@ -25,10 +31,7 @@
 {
   height: 60px;
   width: 60px;
-  margin-left: 15px;
+  
 }
 
- #loggin
-{
-  margin-right: 100px;
-}
+ 
