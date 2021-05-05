@@ -9,9 +9,9 @@
       integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
     <link rel="icon" type="image/png" href="{% static 'img/logoHC.png' %}" />
-    <title>Usuarios Hostal Doña Clarita</title>
+    <title>Registro Factura</title>
 </head>
-<body>
+<body>     
     <div class="container">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
@@ -54,7 +54,7 @@
                     <a class="nav-link" href="recepcion-pedido">Recepcion Pedido</a>
                   </li>
                   {% endif %}
-      
+                        
                   {% if perms.core.add_usuario %}
                   <li class="nav-item">
                     <a class="nav-link" href="nuevo-usuario">Nuevo Usuario</a>
@@ -86,26 +86,25 @@
               </div>
             </div>
           </nav>
-        <h2>Nuevo Usuarios</h2>        
-    <form action="" method="POST">
-        {% csrf_token %} 
-        <table >
-            {{ form.as_table }}
-        </table>
-        <br>
-        {% if perms.core.change_usuario %}
-        <button type="submit" class="btn btn-success">Agregar</button>
-        <button type="reset" class="btn btn-primary">Limpiar</button>
-        {% endif %}
-    </form>
+          <h2>Registro Huesped</h2>
+          <form action="" method="POST">
+            {% csrf_token %} 
+            <table >
+                {{ form.as_table }}
+            </table>
+            <br>
+              <br>
+              <button type="submit" class="btn btn-success">Agregar</button>
+              <button type="reset" class="btn btn-primary">Limpiar</button>
+          </form>
     
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     {% if messages %}
-        {% for m in messages %}
+        {% for e in messages %}
             <script>
                 swal.fire({
                     "title": "Felicitaciones",
-                    "text": "{{m}}",
+                    "text": "{{e}}",
                     "icon": "success"
                 })
             </script>
@@ -126,6 +125,7 @@
           </div>
         </div>
       </footer>
+    
 
    
     

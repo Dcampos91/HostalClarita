@@ -9,9 +9,9 @@
       integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
     <link rel="icon" type="image/png" href="{% static 'img/logoHC.png' %}" />
-    <title>Usuarios Hostal Doña Clarita</title>
+    <title>Registro Huesped</title>
 </head>
-<body>
+<body>     
     <div class="container">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
@@ -31,13 +31,13 @@
                   </li>
                   {% endif %}
 
-                  {% if perms.core.add_cliente %}
+                  {% if perms.core.add_usuario %}
                   <li class="nav-item">
                     <a class="nav-link" href="registro">Registrar Huesped</a>
                   </li>
                   {% endif %}
 
-                  {% if perms.core.add_cliente %}
+                  {% if perms.core.add_usuario %}
                   <li class="nav-item">
                     <a class="nav-link" href="factura-registro">Generar Factura</a>
                   </li>
@@ -54,7 +54,7 @@
                     <a class="nav-link" href="recepcion-pedido">Recepcion Pedido</a>
                   </li>
                   {% endif %}
-      
+                        
                   {% if perms.core.add_usuario %}
                   <li class="nav-item">
                     <a class="nav-link" href="nuevo-usuario">Nuevo Usuario</a>
@@ -86,31 +86,43 @@
               </div>
             </div>
           </nav>
-        <h2>Nuevo Usuarios</h2>        
-    <form action="" method="POST">
-        {% csrf_token %} 
-        <table >
-            {{ form.as_table }}
-        </table>
-        <br>
-        {% if perms.core.change_usuario %}
-        <button type="submit" class="btn btn-success">Agregar</button>
-        <button type="reset" class="btn btn-primary">Limpiar</button>
-        {% endif %}
-    </form>
+          <h2>Listado pedido</h2>  
     
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-    {% if messages %}
-        {% for m in messages %}
-            <script>
-                swal.fire({
-                    "title": "Felicitaciones",
-                    "text": "{{m}}",
-                    "icon": "success"
-                })
-            </script>
-        {% endfor %}
-    {% endif %}
+          <table class="table table-striped">
+              <tr>
+                  <th>Nombre Producto</th>
+                  <th>Valor</th>
+              </tr>
+              {% for p in entity %}
+              <tr>
+                  <td>{{ p.nom_producto }}</td>
+                  <td>{{ p.valor }}</td>            
+                  <td>
+                      {% if perms.core.change_usuario %}
+                      <a href="{% url 'modificar_usuario' u.id_usuario %}" class="btn btn-info btn-sm" >Modificar</a>
+                      {% endif %}
+                      {% if perms.core.delete_usuario %}
+                      <a href="#" onclick="eliminarUsuario({{ u.id_usuario }})" class="btn btn-danger btn-sm" >Eliminar</a>
+                      {% endif %}
+                  </td>
+              </tr>
+              {% endfor %}
+          </table>
+          <div>
+              {% include 'core/paginator.html' %}
+          </div>
+          <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+          {% if messages %}
+              {% for m in messages %}
+                  <script>
+                      swal.fire({
+                          "title": "Felicitaciones",
+                          "text": "{{m}}",
+                          "icon": "success"
+                      })
+                  </script>
+              {% endfor %}
+          {% endif %}
     </div>
     <br>
 
@@ -126,6 +138,7 @@
           </div>
         </div>
       </footer>
+    
 
    
     

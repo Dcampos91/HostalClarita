@@ -11,6 +11,11 @@ urlpatterns = [
     path('eliminar/<id_usuario>/', eliminar_usuario, name="eliminar_usuario"),
     path('registro', registro, name="registro"),
     path('empresa', nueva_empresa, name="empresa"),
+    path('huesped', huesped_registro, name="huesped"),
+    path('recepcion-pedido', recepcion_pedido, name="recepcion_pedido"),
+    path('orden-compra', orden_compra, name="orden_compra"),
+    path('orden-pedido', orden_pedido, name="orden_pedido"),
+    path('factura-registro', registro_factura, name="factura"),
   
     
     
