@@ -1,3 +1,4 @@
+{% load crispy_forms_tags %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,11 +14,12 @@
             <div class="col-12 col-md-6 offset-md-3">
                 <div class="card">
                     <div class="card-body">
+                        
                         <h2>Registro de Cliente</h2>
                         <hr>
                         <form action=""method="POST">
                             {% csrf_token %}
-                            {{ form }}
+                            {{ form | crispy}}
                             <br>
                             <a href="/">ir al inicio</a>
                             <input type="submit" value="ingresar" class="btn btn-success float-right">

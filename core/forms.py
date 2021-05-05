@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ModelForm
-from .models import Usuario, Cliente, TipoUsuario, Huesped, Pedido, Factura, OrdenCompra, Pedido
+from .models import Usuario, Cliente, TipoUsuario, Huesped, Pedido, Factura, OrdenCompra
 from django.contrib.auth.forms import UserCreationForm #registro de usuario
 from django.contrib.auth.models import User
 
@@ -26,7 +26,7 @@ class ClienteForm(ModelForm):
 
     class Meta:
         model = Cliente
-        fields = '__all__'
+        fields = ["rut_empresa","nom_empresa","tel_empresa","direc_empresa"]
 
 class HuespedForm(ModelForm):
     class Meta:
@@ -41,9 +41,17 @@ class OrdenPedidoForm(ModelForm):
 class FacturaForm(ModelForm):
     class Meta:
         model = Factura
-        fields = ["cod_factura","detalle_factura","fecha_factura","valor_factura","valor_iva"]
+        fields = ["cod_factura","fecha_factura","detalle_factura","valor_factura","valor_iva"]
+        widgets = {
+            'fecha_factura':forms.SelectDateWidget
+        }
+
 
 class OrdenCompraForm(ModelForm):
     class Meta:
         model = Pedido
-        fields = '__all__'
+        fields = ["nombre_producto","cantidad","fecha_emision_pedido","fecha_recepcion"]
+        widgets = {
+            'fecha_emision_pedido':forms.SelectDateWidget,
+            'fecha_recepcion':forms.SelectDateWidget
+        }

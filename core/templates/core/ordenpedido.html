@@ -30,38 +30,38 @@
                     <a class="nav-link" href="empresa">Agregar Empresa</a>
                   </li>
                   {% endif %}
-
+      
                   {% if perms.core.add_cliente %}
                   <li class="nav-item">
                     <a class="nav-link" href="registro">Registrar Huesped</a>
                   </li>
                   {% endif %}
-
-                  {% if perms.core.add_cliente %}
+      
+                  {% if perms.core.view_cliente %}
                   <li class="nav-item">
                     <a class="nav-link" href="factura-registro">Generar Factura</a>
                   </li>
                   {% endif %}
-
-                  {% if perms.core.add_cliente %}
+      
+                  {% if perms.core.view_cliente %}
                   <li class="nav-item">
                     <a class="nav-link" href="orden-compra">Generar Orden Pedido</a>
                   </li>
                   {% endif %}
-
-                  {% if perms.core.add_cliente %}
+      
+                  {% if perms.core.view_pedido %}
                   <li class="nav-item">
                     <a class="nav-link" href="recepcion-pedido">Recepcion Pedido</a>
                   </li>
                   {% endif %}
-                        
+      
                   {% if perms.core.add_usuario %}
                   <li class="nav-item">
                     <a class="nav-link" href="nuevo-usuario">Nuevo Usuario</a>
                   </li>
                   {% endif %}
       
-                  {% if perms.core.view_cliente %}
+                  {% if perms.core.view_usuario %}
                   <li class="nav-item">
                     <a class="nav-link" href="listado-usuario">Modificar / Lista Usuarios</a>
                   </li>
