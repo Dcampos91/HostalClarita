@@ -93,6 +93,7 @@ class Pedido(models.Model):
     fecha_emision_pedido = models.DateField()
     fecha_recepcion = models.DateField()
     estado_pedido = models.CharField(max_length=20)
+    nombre_producto = models.CharField(max_length=50)
 
     class Meta:
         managed = True

@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Usuario
+from .models import Usuario, Pedido
 from .forms import UsuarioForm, CustomUserCreationForm, ClienteForm, HuespedForm, OrdenPedidoForm, HuespedForm, FacturaForm, OrdenCompraForm
 from django.contrib import messages #permite enviar mensajes
 from django.core.paginator import Paginator #para dividir las paginas con los usuarios agregados
@@ -26,8 +26,8 @@ def listado_usuario(request):
         'entity':usuario,
         'paginator':paginator
     }
-
     return render(request, 'core/listado_usuarios.html', data)
+    
 @permission_required('core.add_usuario')
 def nuevo_usuario(request):
     data = {
@@ -42,6 +42,7 @@ def nuevo_usuario(request):
             
 
     return render(request, 'core/nuevo_usuario.html', data)
+
 @permission_required('core.change_usuario')
 def modificar_usuario(request, id_usuario):
     usuario = get_object_or_404(Usuario, id_usuario=id_usuario)
@@ -56,6 +57,7 @@ def modificar_usuario(request, id_usuario):
             return redirect(to="listado_usuario")
         data["form"] = formulario    
     return render(request, 'core/modificar.html', data)
+
 @permission_required('core.delete_usuario')
 def eliminar_usuario(request, id_usuario):
 
@@ -81,6 +83,7 @@ def registro(request):
 
     return render(request,'registration/registro.html', data)
 
+@permission_required('core.add_cliente')
 def nueva_empresa(request):
     data = {
         'form': ClienteForm()
@@ -94,6 +97,7 @@ def nueva_empresa(request):
             return redirect(to='home')
     return render(request, 'core/empresa.html', data)
 
+@permission_required('core.add_cliente')
 def huesped_registro(request):
     data = {
         'form': HuespedForm()
@@ -107,22 +111,46 @@ def huesped_registro(request):
         data["form"] = formulario     
     return render(request, 'core/huesped.html', data)
 
+@permission_required('core.add_cliente')
 def recepcion_pedido(request):
     return render(request, 'core/recepcion_pedido.html')
 
+@permission_required('core.view_pedido')
 def orden_pedido(request):
-    data = {
-        'form': OrdenPedidoForm()
-    }
-    if request.method == 'POST':
-        formulario = OrdenPedidoForm(data=request.POST)
-        if formulario.is_valid():
-            formulario.save()
-            messages.success(request, "Orden registrada")
-            return redirect(to='home')  
-        data["form"] = formulario     
-    return render(request, 'core/ordenpedido.html', data)
+    pedido = Pedido.objects.all()
+    page = request.GET.get('page', 1)
 
+    try:
+        paginator = Paginator(pedido, 5)
+        pedido = paginator.page(page)
+    except:
+        raise Http404
+
+    data ={
+        'entity':pedido,
+        'paginator':paginator
+    }
+
+    return render(request, 'core/recepcion_pedido.html', data)
+
+@permission_required('core.view_pedido')
+def recepcion_pedido(request):
+    pedido = Pedido.objects.all()
+    page = request.GET.get('page', 1)
+
+    try:
+        paginator = Paginator(pedido, 5)
+        pedido = paginator.page(page)
+    except:
+        raise Http404
+
+    data ={
+        'entity':pedido,
+        'paginator':paginator
+    }
+    return render(request, 'core/recepcion_pedido.html', data)
+
+@permission_required('core.add_cliente')
 def orden_compra(request):
     data = {
         'form': OrdenCompraForm()
@@ -136,6 +164,7 @@ def orden_compra(request):
         data["form"] = formulario     
     return render(request, 'core/orden_compra.html', data)
 
+@permission_required('core.add_cliente')
 def registro_factura(request):
     data = {
         'form': FacturaForm()

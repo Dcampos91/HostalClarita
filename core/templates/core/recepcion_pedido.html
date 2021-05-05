@@ -30,38 +30,38 @@
                     <a class="nav-link" href="empresa">Agregar Empresa</a>
                   </li>
                   {% endif %}
-
-                  {% if perms.core.add_usuario %}
+      
+                  {% if perms.core.add_cliente %}
                   <li class="nav-item">
                     <a class="nav-link" href="registro">Registrar Huesped</a>
                   </li>
                   {% endif %}
-
-                  {% if perms.core.add_usuario %}
+      
+                  {% if perms.core.view_cliente %}
                   <li class="nav-item">
                     <a class="nav-link" href="factura-registro">Generar Factura</a>
                   </li>
                   {% endif %}
-
-                  {% if perms.core.add_cliente %}
+      
+                  {% if perms.core.view_cliente %}
                   <li class="nav-item">
                     <a class="nav-link" href="orden-compra">Generar Orden Pedido</a>
                   </li>
                   {% endif %}
-
-                  {% if perms.core.add_cliente %}
+      
+                  {% if perms.core.view_cliente %}
                   <li class="nav-item">
                     <a class="nav-link" href="recepcion-pedido">Recepcion Pedido</a>
                   </li>
                   {% endif %}
-                        
+      
                   {% if perms.core.add_usuario %}
                   <li class="nav-item">
                     <a class="nav-link" href="nuevo-usuario">Nuevo Usuario</a>
                   </li>
                   {% endif %}
       
-                  {% if perms.core.view_cliente %}
+                  {% if perms.core.view_usuario %}
                   <li class="nav-item">
                     <a class="nav-link" href="listado-usuario">Modificar / Lista Usuarios</a>
                   </li>
@@ -90,21 +90,15 @@
     
           <table class="table table-striped">
               <tr>
-                  <th>Nombre Producto</th>
-                  <th>Valor</th>
+                <th>Fecha Emision</th>
+                <th>Nombre Producto</th>
+                <th>Valor</th>
               </tr>
               {% for p in entity %}
               <tr>
-                  <td>{{ p.nom_producto }}</td>
-                  <td>{{ p.valor }}</td>            
-                  <td>
-                      {% if perms.core.change_usuario %}
-                      <a href="{% url 'modificar_usuario' u.id_usuario %}" class="btn btn-info btn-sm" >Modificar</a>
-                      {% endif %}
-                      {% if perms.core.delete_usuario %}
-                      <a href="#" onclick="eliminarUsuario({{ u.id_usuario }})" class="btn btn-danger btn-sm" >Eliminar</a>
-                      {% endif %}
-                  </td>
+                <td>{{ p.fecha_emision_pedido}}</td>
+                <td>{{ p.nombre_producto }}</td>
+                <td>{{ p.cantidad }}</td> 
               </tr>
               {% endfor %}
           </table>

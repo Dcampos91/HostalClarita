@@ -38,19 +38,19 @@
             </li>
             {% endif %}
 
-            {% if perms.core.add_cliente %}
+            {% if perms.core.view_cliente %}
             <li class="nav-item">
               <a class="nav-link" href="factura-registro">Generar Factura</a>
             </li>
             {% endif %}
 
-            {% if perms.core.add_cliente %}
+            {% if perms.core.view_cliente %}
             <li class="nav-item">
               <a class="nav-link" href="orden-compra">Generar Orden Pedido</a>
             </li>
             {% endif %}
 
-            {% if perms.core.add_cliente %}
+            {% if perms.core.view_pedido %}
             <li class="nav-item">
               <a class="nav-link" href="recepcion-pedido">Recepcion Pedido</a>
             </li>
