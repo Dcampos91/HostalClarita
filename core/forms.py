@@ -26,7 +26,7 @@ class ClienteForm(ModelForm):
 
     class Meta:
         model = Cliente
-        fields = ["rut_empresa","nom_empresa","tel_empresa","direc_empresa"]
+        fields = '__all__'
 
 class HuespedForm(ModelForm):
     class Meta:
