@@ -32,9 +32,16 @@
     <link rel="icon" type="image/png" href="{% static 'img/logoHC.png' %}" />
 
     
-    <title>Usuarios Hostal Doña Clarita</title>
+    <title>Usuarios | Hostal Clarita</title>
     
 </head>
+<style>
+  ::selection
+  {
+    color: #fff;
+    background: #7d0b8a;
+  }
+  </style>
 <body>
     <div class="container-fluid">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -46,9 +53,6 @@
               </button>
               <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
-                  <li class="nav-item">
-                    <a class="nav-link" href="/">Inicio</a>
-                  </li>
                   {% if perms.core.add_cliente %}
                   <li class="nav-item">
                     <a class="nav-link" href="empresa">Agregar Empresa</a>
