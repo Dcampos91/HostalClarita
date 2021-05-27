@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ModelForm
-from .models import Usuario, Cliente, TipoUsuario, Huesped, Pedido, Factura, OrdenCompra
+from .models import Usuario, Cliente, TipoUsuario, Huesped, Pedido, Factura, OrdenCompra, TipoHabitacion
 from django.contrib.auth.forms import UserCreationForm #registro de usuario
 from django.contrib.auth.models import User
 
@@ -55,3 +55,8 @@ class OrdenCompraForm(ModelForm):
             'fecha_emision_pedido':forms.SelectDateWidget,
             'fecha_recepcion':forms.SelectDateWidget
         }
+
+class TipoHabitacionForm(ModelForm):
+    class Meta:
+        model = TipoHabitacion
+        fields = '__all__'

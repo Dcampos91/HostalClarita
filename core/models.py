@@ -115,9 +115,9 @@ class Empleado(models.Model):
 
 class TipoHabitacion(models.Model):
     id_tipo_habitacion = models.IntegerField(primary_key=True)
-    datelle_habitacion = models.CharField(max_length=50)
+    detalle_habitacion = models.CharField(max_length=100)
     valor_habitacion = models.IntegerField()
-    tipo_cama = models.CharField(max_length=50)
+    tipo_hab = models.CharField(max_length=50)
     hostal_clarita_rut_hostal = models.ForeignKey(HostalClarita, on_delete=models.PROTECT)
 
     class Meta:

@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Usuario, Pedido
+from .models import TipoHabitacion, Usuario, Pedido
 from .forms import UsuarioForm, CustomUserCreationForm, ClienteForm, HuespedForm, OrdenPedidoForm, HuespedForm, FacturaForm, OrdenCompraForm
 from django.contrib import messages #permite enviar mensajes
 from django.core.paginator import Paginator #para dividir las paginas con los usuarios agregados
@@ -180,10 +180,19 @@ def registro_factura(request):
     return render(request, 'core/factura.html', data)
 
 def registro_habitacion(request):
-    django_cursor = connection.cursor()
-    cursor = django_cursor.connection.cursor()#llama al proceso
-    out_cur = django_cursor.connection.cursor()#recibe el proceso
+    tiphab = TipoHabitacion.objects.all()
+    page = request.GET.get('page', 1)
 
-    cursor.callproc("")
-    return render(request,'core/registro_habitacion.html')
+    try:
+        paginator = Paginator(tiphab, 6)
+        tiphab = paginator.page(page)
+    except:
+        raise Http404
+
+    data ={
+        'entity':tiphab,
+        'paginator':paginator
+    }
+    
+    return render(request,'core/registro_habitacion.html',data)
     
