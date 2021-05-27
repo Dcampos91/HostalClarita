@@ -6,7 +6,8 @@ from django.core.paginator import Paginator #para dividir las paginas con los us
 from django.http import Http404
 from django.contrib.auth import authenticate, login #autentica usuario
 from django.contrib.auth.decorators import login_required, permission_required
-#prueba de descarga
+from django.db import connection #trae la coneccion de la base de datos
+
 
 #crear vista
 def home(request):#la pagina de inicio
@@ -178,4 +179,11 @@ def registro_factura(request):
         data["form"] = formulario     
     return render(request, 'core/factura.html', data)
 
+def registro_habitacion(request):
+    django_cursor = connection.cursor()
+    cursor = django_cursor.connection.cursor()#llama al proceso
+    out_cur = django_cursor.connection.cursor()#recibe el proceso
+
+    cursor.callproc("")
+    return render(request,'core/registro_habitacion.html')
     

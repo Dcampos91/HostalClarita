@@ -40,6 +40,12 @@
                     <a class="nav-link" href="registro">Registrar Huesped</a>
                   </li>
                   {% endif %}
+
+                  {% if perms.core.add_cliente %}
+                  <li class="nav-item">
+                    <a class="nav-link" href="registro-habitacion">Registro Habitación</a>
+                  </li>
+                  {% endif %}
       
                   {% if perms.core.view_cliente %}
                   <li class="nav-item">
