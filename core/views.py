@@ -3,10 +3,11 @@ from .models import TipoHabitacion, Usuario, Pedido
 from .forms import UsuarioForm, CustomUserCreationForm, ClienteForm, HuespedForm, OrdenPedidoForm, HuespedForm, FacturaForm, OrdenCompraForm
 from django.contrib import messages #permite enviar mensajes
 from django.core.paginator import Paginator #para dividir las paginas con los usuarios agregados
-from django.http import Http404
+from django.http import Http404, request
 from django.contrib.auth import authenticate, login #autentica usuario
 from django.contrib.auth.decorators import login_required, permission_required
 from django.db import connection #trae la coneccion de la base de datos
+import cx_Oracle
 
 
 #crear vista
@@ -195,4 +196,51 @@ def registro_habitacion(request):
     }
     
     return render(request,'core/registro_habitacion.html',data)
+
+def registro_proveedor(request):
+    data = {
+        'registro_proveedor':listar_proveedor()
+    }
+    if request.method == 'POST':
+        rut_proveedor = request.POST.get('rut')
+        nom_proveedor = request.POST.get('nombre')
+        rubro_proveedor = request.POST.get('rubro')
+        tel_proveedor = request.POST.get('telefono')
+        salida = agregar_proveedor(rut_proveedor, nom_proveedor, rubro_proveedor, tel_proveedor)
+        if salida == 1:
+            data['mensaje'] = 'Registrado Correctamente'
+            data['registro_proveedor'] = listar_proveedor()
+        else:
+            data['mensaje'] = 'No se ha podido registrar'
+
     
+    return render(request, 'core/registro_proveedor.html', data)
+
+def listar_proveedor():   
+    django_cursor = connection.cursor()
+    cursor = django_cursor.connection.cursor()
+    out_cur = django_cursor.connection.cursor()
+
+    cursor.callproc("SP_LISTAR_PROVEEDOR", [out_cur])
+
+    lista = []
+    for fila in out_cur:
+        lista.append(fila)
+    return lista
+
+def agregar_proveedor(rut_proveedor, nom_proveedor, rubro_proveedor, tel_proveedor):
+    django_cursor = connection.cursor()
+    cursor = django_cursor.connection.cursor()
+    salida = cursor.var(cx_Oracle.NUMBER)
+    cursor.callproc('SP_AGREGAR_PROVEEDOR',[rut_proveedor,nom_proveedor,rubro_proveedor,tel_proveedor,salida]) 
+     
+    return salida.getvalue()
+
+    
+
+
+
+
+
+
+

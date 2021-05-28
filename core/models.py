@@ -184,8 +184,8 @@ class Producto(models.Model):
 
 class Proveedor(models.Model):
     rut_proveedor = models.CharField(max_length=12, primary_key=True)
-    nom_proveedor = models.CharField(max_length=20)
-    rubro_proveedor = models.CharField(max_length=20)
+    nom_proveedor = models.CharField(max_length=50)
+    rubro_proveedor = models.CharField(max_length=50)
     tel_proveedor = models.CharField(max_length=12)
     producto_id_producto = models.ForeignKey(Producto, on_delete=models.PROTECT, related_name='producto_idproducto')
     producto_pedido_id_pedido = models.ForeignKey(Producto, on_delete=models.PROTECT)
