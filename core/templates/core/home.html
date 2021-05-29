@@ -37,10 +37,21 @@
               <a class="nav-link" href="empresa">Agregar Empresa</a>
             </li>
             {% endif %}
+            {% if perms.core.add_cliente %}
+            <li class="nav-item">
+              <a class="nav-link" href="registro-proveedor">Registro Proveedor</a>
+            </li>
+            {% endif %}
 
             {% if perms.core.add_cliente %}
             <li class="nav-item">
               <a class="nav-link" href="registro">Registrar Huesped</a>
+            </li>
+            {% endif %}
+
+            {% if perms.core.add_cliente %}
+            <li class="nav-item">
+              <a class="nav-link" href="reserva-huesped">Reserva Huesped</a>
             </li>
             {% endif %}
 

@@ -1,3 +1,4 @@
+from django.forms.widgets import DateTimeBaseInput
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import TipoHabitacion, Usuario, Pedido
 from .forms import UsuarioForm, CustomUserCreationForm, ClienteForm, HuespedForm, OrdenPedidoForm, HuespedForm, FacturaForm, OrdenCompraForm
@@ -201,20 +202,20 @@ def registro_proveedor(request):
     data = {
         'registro_proveedor':listar_proveedor()
     }
+
     if request.method == 'POST':
-        rut_proveedor = request.POST.get('rut')
-        nom_proveedor = request.POST.get('nombre')
-        rubro_proveedor = request.POST.get('rubro')
-        tel_proveedor = request.POST.get('telefono')
-        salida = agregar_proveedor(rut_proveedor, nom_proveedor, rubro_proveedor, tel_proveedor)
+        rut_proveedor = request.POST.get('rut') 
+        nom_proveedor = request.POST.get('nombre') 
+        rubro_proveedor = request.POST.get('rubro') 
+        tel_proveedor = request.POST.get('telefono') 
+        salida = agregar_proveedor(rut_proveedor,nom_proveedor,rubro_proveedor,tel_proveedor)
         if salida == 1:
-            data['mensaje'] = 'Registrado Correctamente'
+            data['mensaje'] = 'agregado correctamente'
             data['registro_proveedor'] = listar_proveedor()
         else:
-            data['mensaje'] = 'No se ha podido registrar'
+            data['mensaje'] = 'no se ha guardado'
 
-    
-    return render(request, 'core/registro_proveedor.html', data)
+    return render(request, 'core/registro_proveedor.html',data)
 
 def listar_proveedor():   
     django_cursor = connection.cursor()
@@ -232,13 +233,85 @@ def agregar_proveedor(rut_proveedor, nom_proveedor, rubro_proveedor, tel_proveed
     django_cursor = connection.cursor()
     cursor = django_cursor.connection.cursor()
     salida = cursor.var(cx_Oracle.NUMBER)
-    cursor.callproc('SP_AGREGAR_PROVEEDOR',[rut_proveedor,nom_proveedor,rubro_proveedor,tel_proveedor,salida]) 
-     
+    cursor.callproc('SP_AGREGAR_PROVEEDOR',[rut_proveedor,nom_proveedor,rubro_proveedor,tel_proveedor,salida])     
     return salida.getvalue()
 
-    
 
+def reserva_huesped(request):
+    data = {
+        'empresa':listado_empresa(),
+        'huesped':listado_huesped(),
+        'habitacion':listado_habitacion(),
+        'listado_huesped':listado_huespedes()
+    }
+    if request.method == 'POST':
+        rut_empresa = request.POST.get('rut empresa') 
+        rut_huesped = request.POST.get('rut huesped') 
+        id_tipo_habitacion = request.POST.get('id tipo habitacion') 
+        check_in = request.POST.get('check_in') 
+        check_out = request.POST.get('check_out')
+        salida = registrar_reserva(rut_empresa,rut_huesped,id_tipo_habitacion,check_in,check_out)
+        if salida == 1:
+            data['mensaje'] = 'agregado correctamente'
+            data['listado_huesped'] = listado_huespedes()
+        else:
+            data['mensaje'] = 'no se ha guardado'
+    return render(request, 'core/reserva_huesped.html',data)  
 
+def listado_empresa():
+    django_cursor = connection.cursor()
+    cursor = django_cursor.connection.cursor()
+    out_cur = django_cursor.connection.cursor()
+
+    cursor.callproc("SP_LISTAR_RUTEMPRESA", [out_cur])
+
+    lista = []
+    for fila in out_cur:
+        lista.append(fila)
+    return lista
+
+def listado_huesped():
+    django_cursor = connection.cursor()
+    cursor = django_cursor.connection.cursor()
+    out_cur = django_cursor.connection.cursor()
+
+    cursor.callproc("SP_LISTAR_RUTHUESPED", [out_cur])
+
+    lista = []
+    for fila in out_cur:
+        lista.append(fila)
+    return lista
+
+def listado_habitacion():
+    django_cursor = connection.cursor()
+    cursor = django_cursor.connection.cursor()
+    out_cur = django_cursor.connection.cursor()
+
+    cursor.callproc("SP_LISTAR_IDHABITACION", [out_cur])
+
+    lista = []
+    for fila in out_cur:
+        lista.append(fila)
+    return lista
+
+def listado_huespedes():
+    django_cursor = connection.cursor()
+    cursor = django_cursor.connection.cursor()
+    out_cur = django_cursor.connection.cursor()
+
+    cursor.callproc("SP_LISTAR_RESERVA", [out_cur])
+
+    lista = []
+    for fila in out_cur:
+        lista.append(fila)
+    return lista
+
+def registrar_reserva(rut_empresa,rut_huesped,id_tipo_habitacion,check_in,check_out):
+    django_cursor = connection.cursor()
+    cursor = django_cursor.connection.cursor()
+    salida = cursor.var(cx_Oracle.NUMBER)
+    cursor.callproc('SP_GENERAR_RESERVA',[rut_empresa,rut_huesped,id_tipo_habitacion,check_in,check_out,salida])     
+    return salida.getvalue()
 
 
 

@@ -18,6 +18,7 @@ urlpatterns = [
     path('factura-registro', registro_factura, name="factura"),
     path('registro-habitacion', registro_habitacion, name="registro_habitacion"),
     path('registro-proveedor', registro_proveedor, name="registro_proveedor"),
+    path('reserva-huesped', reserva_huesped, name="reserva_huesped"),
   
     
     
