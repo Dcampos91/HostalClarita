@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models.base import Model
 #crea la base de datos
 
 class Bodega(models.Model):
@@ -115,9 +116,9 @@ class Empleado(models.Model):
 
 class TipoHabitacion(models.Model):
     id_tipo_habitacion = models.IntegerField(primary_key=True)
-    datelle_habitacion = models.CharField(max_length=50)
+    detalle_habitacion = models.CharField(max_length=100)
     valor_habitacion = models.IntegerField()
-    tipo_cama = models.CharField(max_length=50)
+    tipo_hab = models.CharField(max_length=50)
     hostal_clarita_rut_hostal = models.ForeignKey(HostalClarita, on_delete=models.PROTECT)
 
     class Meta:
@@ -184,17 +185,13 @@ class Producto(models.Model):
 
 class Proveedor(models.Model):
     rut_proveedor = models.CharField(max_length=12, primary_key=True)
-    nom_proveedor = models.CharField(max_length=20)
-    rubro_proveedor = models.CharField(max_length=20)
+    nom_proveedor = models.CharField(max_length=50)
+    rubro_proveedor = models.CharField(max_length=50)
     tel_proveedor = models.CharField(max_length=12)
-    producto_id_producto = models.ForeignKey(Producto, on_delete=models.PROTECT, related_name='producto_idproducto')
-    producto_pedido_id_pedido = models.ForeignKey(Producto, on_delete=models.PROTECT)
-    producto_bodega_id_bodega = models.ForeignKey(Producto, on_delete=models.PROTECT, related_name='producto_idbodega')
-
     class Meta:
         managed = True
         db_table = 'proveedor'
-        unique_together = (('rut_proveedor', 'producto_id_producto', 'producto_pedido_id_pedido', 'producto_bodega_id_bodega'),)
+        
 
 
 class Usuario(models.Model):
@@ -214,3 +211,15 @@ class TipoUsuario(models.Model):
     class Meta:
         managed = True
         db_table = 'tipo_usuario'
+
+class reserva(models.Model):
+    id_reserva = models.AutoField(primary_key=True)
+    rut_empresa = models.CharField(max_length=12)
+    rut_huesped = models.CharField(max_length=12)
+    id_tipo_habitacion = models.IntegerField()
+    check_in = models.DateField()
+    check_out = models.DateField()
+
+    class Meta:
+        managed = True
+        db_table = 'reserva'

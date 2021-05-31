@@ -43,6 +43,12 @@
       
                   {% if perms.core.view_cliente %}
                   <li class="nav-item">
+                    <a class="nav-link" href="registro-habitacion">Registro Habitación</a>
+                  </li>
+                  {% endif %}
+      
+                  {% if perms.core.view_cliente %}
+                  <li class="nav-item">
                     <a class="nav-link" href="factura-registro">Generar Factura</a>
                   </li>
                   {% endif %}

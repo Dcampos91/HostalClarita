@@ -29,7 +29,7 @@ ALLOWED_HOSTS = []
 
 
 
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/menu-admin'
 LOGOUT_REDIRECT_URL = '/'
 
 MESSAGE_STORE = "django.contrib.messages.storage.cookie.CookiesStorage"#activa los mensaje de avisos en django

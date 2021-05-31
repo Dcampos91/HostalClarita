@@ -1,12 +1,19 @@
+from django.forms.widgets import DateTimeBaseInput
 from django.shortcuts import render, redirect, get_object_or_404
+<<<<<<< HEAD
 from .models import Usuario, Pedido
+=======
+from .models import TipoHabitacion, Usuario, Pedido
+>>>>>>> master
 from .forms import UsuarioForm, CustomUserCreationForm, ClienteForm, HuespedForm, OrdenPedidoForm, HuespedForm, FacturaForm, OrdenCompraForm
 from django.contrib import messages #permite enviar mensajes
 from django.core.paginator import Paginator #para dividir las paginas con los usuarios agregados
-from django.http import Http404
+from django.http import Http404, request
 from django.contrib.auth import authenticate, login #autentica usuario
 from django.contrib.auth.decorators import login_required, permission_required
-#prueba de descarga
+from django.db import connection #trae la coneccion de la base de datos
+import cx_Oracle
+
 
 #crear vista
 def home(request):#la pagina de inicio
@@ -178,4 +185,142 @@ def registro_factura(request):
         data["form"] = formulario     
     return render(request, 'core/factura.html', data)
 
+def registro_habitacion(request):
+    tiphab = TipoHabitacion.objects.all()
+    page = request.GET.get('page', 1)
+
+    try:
+        paginator = Paginator(tiphab, 6)
+        tiphab = paginator.page(page)
+    except:
+        raise Http404
+
+    data ={
+        'entity':tiphab,
+        'paginator':paginator
+    }
     
+    return render(request,'core/registro_habitacion.html',data)
+
+def registro_proveedor(request):
+    data = {
+        'registro_proveedor':listar_proveedor()
+    }
+
+    if request.method == 'POST':
+        rut_proveedor = request.POST.get('rut') 
+        nom_proveedor = request.POST.get('nombre') 
+        rubro_proveedor = request.POST.get('rubro') 
+        tel_proveedor = request.POST.get('telefono') 
+        salida = agregar_proveedor(rut_proveedor,nom_proveedor,rubro_proveedor,tel_proveedor)
+        if salida == 1:
+            data['mensaje'] = 'agregado correctamente'
+            data['registro_proveedor'] = listar_proveedor()
+        else:
+            data['mensaje'] = 'no se ha guardado'
+
+    return render(request, 'core/registro_proveedor.html',data)
+
+def listar_proveedor():   
+    django_cursor = connection.cursor()
+    cursor = django_cursor.connection.cursor()
+    out_cur = django_cursor.connection.cursor()
+
+    cursor.callproc("SP_LISTAR_PROVEEDOR", [out_cur])
+
+    lista = []
+    for fila in out_cur:
+        lista.append(fila)
+    return lista
+
+def agregar_proveedor(rut_proveedor, nom_proveedor, rubro_proveedor, tel_proveedor):
+    django_cursor = connection.cursor()
+    cursor = django_cursor.connection.cursor()
+    salida = cursor.var(cx_Oracle.NUMBER)
+    cursor.callproc('SP_AGREGAR_PROVEEDOR',[rut_proveedor,nom_proveedor,rubro_proveedor,tel_proveedor,salida])     
+    return salida.getvalue()
+
+
+def reserva_huesped(request):
+    data = {
+        'empresa':listado_empresa(),
+        'huesped':listado_huesped(),
+        'habitacion':listado_habitacion(),
+        'listado_huesped':listado_huespedes()
+    }
+    if request.method == 'POST':
+        rut_empresa = request.POST.get('rut empresa') 
+        rut_huesped = request.POST.get('rut huesped') 
+        id_tipo_habitacion = request.POST.get('id tipo habitacion') 
+        check_in = request.POST.get('check_in') 
+        check_out = request.POST.get('check_out')
+        salida = registrar_reserva(rut_empresa,rut_huesped,id_tipo_habitacion,check_in,check_out)
+        if salida == 1:
+            data['mensaje'] = 'agregado correctamente'
+            data['listado_huesped'] = listado_huespedes()
+        else:
+            data['mensaje'] = 'no se ha guardado'
+    return render(request, 'core/reserva_huesped.html',data)  
+
+def listado_empresa():
+    django_cursor = connection.cursor()
+    cursor = django_cursor.connection.cursor()
+    out_cur = django_cursor.connection.cursor()
+
+    cursor.callproc("SP_LISTAR_RUTEMPRESA", [out_cur])
+
+    lista = []
+    for fila in out_cur:
+        lista.append(fila)
+    return lista
+
+def listado_huesped():
+    django_cursor = connection.cursor()
+    cursor = django_cursor.connection.cursor()
+    out_cur = django_cursor.connection.cursor()
+
+    cursor.callproc("SP_LISTAR_RUTHUESPED", [out_cur])
+
+    lista = []
+    for fila in out_cur:
+        lista.append(fila)
+    return lista
+
+def listado_habitacion():
+    django_cursor = connection.cursor()
+    cursor = django_cursor.connection.cursor()
+    out_cur = django_cursor.connection.cursor()
+
+    cursor.callproc("SP_LISTAR_IDHABITACION", [out_cur])
+
+    lista = []
+    for fila in out_cur:
+        lista.append(fila)
+    return lista
+
+def listado_huespedes():
+    django_cursor = connection.cursor()
+    cursor = django_cursor.connection.cursor()
+    out_cur = django_cursor.connection.cursor()
+
+    cursor.callproc("SP_LISTAR_RESERVA", [out_cur])
+
+    lista = []
+    for fila in out_cur:
+        lista.append(fila)
+    return lista
+
+def registrar_reserva(rut_empresa,rut_huesped,id_tipo_habitacion,check_in,check_out):
+    django_cursor = connection.cursor()
+    cursor = django_cursor.connection.cursor()
+    salida = cursor.var(cx_Oracle.NUMBER)
+    cursor.callproc('SP_GENERAR_RESERVA',[rut_empresa,rut_huesped,id_tipo_habitacion,check_in,check_out,salida])     
+    return salida.getvalue()
+
+def menu_admin(request):
+    return render(request,'core/menuadmin.html')
+
+
+
+
+

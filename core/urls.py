@@ -16,6 +16,10 @@ urlpatterns = [
     path('orden-compra', orden_compra, name="orden_compra"),
     path('orden-pedido', orden_pedido, name="orden_pedido"),
     path('factura-registro', registro_factura, name="factura"),
+    path('registro-habitacion', registro_habitacion, name="registro_habitacion"),
+    path('registro-proveedor', registro_proveedor, name="registro_proveedor"),
+    path('reserva-huesped', reserva_huesped, name="reserva_huesped"),
+    path('menu-admin', menu_admin, name="menu_admin"),
   
     
     
