@@ -15,7 +15,7 @@
 {
   text-align: center;
   color: black;
-  margin-right: 2px;
+  margin-left: 2px;
 }
 
 #navbarNav li a:hover
@@ -26,6 +26,13 @@
 }
 
 /* CUERPO */
+
+.test
+{
+  height: 100px;
+  width: 100px;
+}
+
 #hero
 {
   background-image: url(../img/bg_principal.jpg);

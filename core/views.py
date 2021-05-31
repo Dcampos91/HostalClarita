@@ -313,6 +313,9 @@ def registrar_reserva(rut_empresa,rut_huesped,id_tipo_habitacion,check_in,check_
     cursor.callproc('SP_GENERAR_RESERVA',[rut_empresa,rut_huesped,id_tipo_habitacion,check_in,check_out,salida])     
     return salida.getvalue()
 
+def menu_admin(request):
+    return render(request,'core/menuadmin.html')
+
 
 
 

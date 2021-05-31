@@ -21,7 +21,7 @@
   }
   </style>
 <body>
-  <div class="container-fluid" id="allpage">
+  <!-- <div class="container-fluid" id="allpage">  PREGUNTAR A OMAR Q WEA ESTE DIV QUE NO HACE NADA-->
     <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light" id="menubar">
       <div class="container-fluid">
         <a class="navbar-brand" href="/"><img src="{% static 'img/logoClarita.png' %}" width="250px" id="logoFront"></a>
@@ -32,64 +32,25 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <!--ms-auto deja menu a la derecha -->
           <ul class="navbar-nav  ms-auto" id="menux">
-            {% if perms.core.add_cliente %}
+            
             <li class="nav-item">
-              <a class="nav-link" href="empresa">Agregar Empresa</a>
+              <a class="nav-link" href="#nosotros">Nosotros</a>
             </li>
-            {% endif %}
-            {% if perms.core.add_cliente %}
-            <li class="nav-item">
-              <a class="nav-link" href="registro-proveedor">Registro Proveedor</a>
-            </li>
-            {% endif %}
+            
 
-            {% if perms.core.add_cliente %}
+            
             <li class="nav-item">
-              <a class="nav-link" href="registro">Registrar Huesped</a>
+              <a class="nav-link" href="#habitaciones">Nuestros Servicios</a>
             </li>
-            {% endif %}
+            
+            
+            
+            <li class="nav-item">
+              <a class="nav-link" href="#galeria">Galeria</a>
+            </li>
+            
 
-            {% if perms.core.add_cliente %}
-            <li class="nav-item">
-              <a class="nav-link" href="reserva-huesped">Reserva Huesped</a>
-            </li>
-            {% endif %}
-
-            {% if perms.core.add_cliente %}
-            <li class="nav-item">
-              <a class="nav-link" href="registro-habitacion">Registro Habitación</a>
-            </li>
-            {% endif %}
-
-            {% if perms.core.view_cliente %}
-            <li class="nav-item">
-              <a class="nav-link" href="factura-registro">Generar Factura</a>
-            </li>
-            {% endif %}
-
-            {% if perms.core.view_cliente %}
-            <li class="nav-item">
-              <a class="nav-link" href="orden-compra">Generar Orden Pedido</a>
-            </li>
-            {% endif %}
-
-            {% if perms.core.view_pedido %}
-            <li class="nav-item">
-              <a class="nav-link" href="recepcion-pedido">Recepcion Pedido</a>
-            </li>
-            {% endif %}
-
-            {% if perms.core.add_usuario %}
-            <li class="nav-item">
-              <a class="nav-link" href="nuevo-usuario">Nuevo Usuario</a>
-            </li>
-            {% endif %}
-
-            {% if perms.core.view_usuario %}
-            <li class="nav-item">
-              <a class="nav-link" href="listado-usuario">Modificar / Lista Usuarios</a>
-            </li>
-            {% endif %}
+            
           
             <div class="dropdown" id="loggin">
               

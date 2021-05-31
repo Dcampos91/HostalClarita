@@ -19,6 +19,7 @@ urlpatterns = [
     path('registro-habitacion', registro_habitacion, name="registro_habitacion"),
     path('registro-proveedor', registro_proveedor, name="registro_proveedor"),
     path('reserva-huesped', reserva_huesped, name="reserva_huesped"),
+    path('menu-admin', menu_admin, name="menu_admin"),
   
     
     
