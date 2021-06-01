@@ -15,11 +15,7 @@
 {
   text-align: center;
   color: black;
-<<<<<<< HEAD
   margin-right: 2px;
-=======
-  margin-left: 2px;
->>>>>>> master
 }
 
 #navbarNav li a:hover
@@ -30,16 +26,6 @@
 }
 
 /* CUERPO */
-<<<<<<< HEAD
-=======
-
-.test
-{
-  height: 100px;
-  width: 100px;
-}
-
->>>>>>> master
 #hero
 {
   background-image: url(../img/bg_principal.jpg);
