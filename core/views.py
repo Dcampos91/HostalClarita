@@ -1,10 +1,6 @@
 from django.forms.widgets import DateTimeBaseInput
 from django.shortcuts import render, redirect, get_object_or_404
-<<<<<<< HEAD
-from .models import Usuario, Pedido
-=======
 from .models import TipoHabitacion, Usuario, Pedido
->>>>>>> master
 from .forms import UsuarioForm, CustomUserCreationForm, ClienteForm, HuespedForm, OrdenPedidoForm, HuespedForm, FacturaForm, OrdenCompraForm
 from django.contrib import messages #permite enviar mensajes
 from django.core.paginator import Paginator #para dividir las paginas con los usuarios agregados
