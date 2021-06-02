@@ -22,6 +22,7 @@ urlpatterns = [
     path('menu-admin', menu_admin, name="menu_admin"),
     path('comedor', comedor , name="comedor"),
     #prueba1
+    #estamos bien compa ahora a meter diseño nomas porfis XD
     
   
     
