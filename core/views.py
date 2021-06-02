@@ -316,7 +316,42 @@ def registrar_reserva(rut_empresa,rut_huesped,id_tipo_habitacion,check_in,check_
 def menu_admin(request):
     return render(request,'core/menuadmin.html')
 
+def comedor(request):
+    data = {
+        'comedor':listar_comedor()
+    }
+    if request.method == 'POST':
+        nombre_plato = request.POST.get('nombre') 
+        detalle = request.POST.get('detalle') 
+        valor_plato = request.POST.get('valor') 
+        tipo_servicio = request.POST.get('servicio') 
+        salida = registrar_comedor(nombre_plato,detalle,valor_plato,tipo_servicio)
+        if salida == 1:
+            data['mensaje'] = 'agregado correctamente'
+            data['comedor'] = listar_comedor()
+        else:
+            data['mensaje'] = 'no se ha guardado'
 
+    return render(request,'core/comedor.html',data)
+
+def listar_comedor():
+    django_cursor = connection.cursor()
+    cursor = django_cursor.connection.cursor()
+    out_cur = django_cursor.connection.cursor()
+
+    cursor.callproc("SP_LISTAR_COMEDOR", [out_cur])
+
+    lista = []
+    for fila in out_cur:
+        lista.append(fila)
+    return lista
+
+def registrar_comedor(nombre_plato,detalle,valor_plato,tipo_servicio):
+    django_cursor = connection.cursor()
+    cursor = django_cursor.connection.cursor()
+    salida = cursor.var(cx_Oracle.NUMBER)
+    cursor.callproc('SP_AGREGAR_COMEDOR',[nombre_plato,detalle,valor_plato,tipo_servicio,salida])     
+    return salida.getvalue()
 
 
 

@@ -223,3 +223,16 @@ class reserva(models.Model):
     class Meta:
         managed = True
         db_table = 'reserva'
+
+class comedor(models.Model):
+    id_plato = models.AutoField(primary_key=True)
+    nombre_plato = models.CharField(max_length=50)
+    detalle = models.CharField(max_length=100)
+    valor_plato = models.IntegerField()
+    tipo_servicio = models.CharField(max_length=50)
+
+    class Meta:
+        managed = True
+        db_table = 'comedor'
+
+

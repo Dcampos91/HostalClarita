@@ -20,6 +20,8 @@ urlpatterns = [
     path('registro-proveedor', registro_proveedor, name="registro_proveedor"),
     path('reserva-huesped', reserva_huesped, name="reserva_huesped"),
     path('menu-admin', menu_admin, name="menu_admin"),
+    path('comedor', comedor , name="comedor"),
+    
   
     
     
