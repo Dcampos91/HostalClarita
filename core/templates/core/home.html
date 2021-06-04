@@ -32,12 +32,18 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <!--ms-auto deja menu a la derecha -->
           <ul class="navbar-nav  ms-auto" id="menux">
+
+
+            {% if perms.core.view_cliente %}
+            <li class="nav-item">
+              <a class="nav-link" href="menu-admin">MENU DE USUARIOS</a>
+            </li>
+            {% endif %}
             
             <li class="nav-item">
               <a class="nav-link" href="#nosotros">Nosotros</a>
             </li>
             
-
             
             <li class="nav-item">
               <a class="nav-link" href="#habitaciones">Nuestros Servicios</a>
