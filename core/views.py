@@ -1,14 +1,19 @@
+from django.db.models.query import QuerySet
 from django.forms.widgets import DateTimeBaseInput
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import TipoHabitacion, Usuario, Pedido
+from .models import TipoHabitacion, Usuario, Pedido, comedor
 from .forms import UsuarioForm, CustomUserCreationForm, ClienteForm, HuespedForm, OrdenPedidoForm, HuespedForm, FacturaForm, OrdenCompraForm
 from django.contrib import messages #permite enviar mensajes
 from django.core.paginator import Paginator #para dividir las paginas con los usuarios agregados
-from django.http import Http404, request
+from django.http import Http404, request, HttpResponse
 from django.contrib.auth import authenticate, login #autentica usuario
 from django.contrib.auth.decorators import login_required, permission_required
 from django.db import connection #trae la coneccion de la base de datos
 import cx_Oracle
+from django.views.generic.base import TemplateView
+from django.views.generic import ListView, View
+
+
 
 
 #crear vista
@@ -354,4 +359,16 @@ def registrar_comedor(nombre_plato,detalle,valor_plato,tipo_servicio):
     return salida.getvalue()
 
 
+class reporte(ListView):
+    model = comedor
+    template_name = "core/reporte.html"
+    context_object_name = 'comedores'
 
+class reportepdf(View):
+    def get(self, request, *args, **kwargs):
+        comedores = comedor.objects.all()
+        data = {
+            'comedores' : comedores
+        }
+        pdf = imprimir_pdf('core/listado_reporte.html', data)
+        return HttpResponse(pdf, content_type='Clarita/pdf')

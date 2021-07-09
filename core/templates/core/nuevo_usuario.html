@@ -34,15 +34,15 @@
               <li class="nav-item">
                 <a class="nav-link" href="javascript: history.go(-1)">VOLVER</a>
               </li>
+              &nbsp;
               <div class="dropdown" id="loggin">
                 
                 <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                   data-bs-toggle="dropdown" aria-expanded="false">
-                  Inicia Sesión
+                  {{ user.username }}
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                   {% if user.is_authenticated %}
-                  <li><a class="dropdown-item" href="#">@ {{ user.username }}</a></li>
                   <li><a class="dropdown-item" href="{% url 'logout' %}">Cerrar sesión</a></li>
                   {% else %}
                   <li><a class="dropdown-item" href="{% url 'login' %}">Iniciar Sesión</a></li>
@@ -53,6 +53,7 @@
             </ul>
           </div>
         </div>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       </nav>
         <h2>Nuevo Usuarios</h2>        
     <form action="" method="POST">

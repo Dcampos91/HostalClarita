@@ -2,6 +2,8 @@ from django.urls import path
 from django.urls.conf import include
 from .views import *
 from django.contrib.auth import views as auth_views
+from . import views
+
 
 urlpatterns = [
     path('', home, name="home"),
@@ -21,8 +23,9 @@ urlpatterns = [
     path('reserva-huesped', reserva_huesped, name="reserva_huesped"),
     path('menu-admin', menu_admin, name="menu_admin"),
     path('comedor', comedor , name="comedor"),
-    #prueba1
-    #estamos bien compa ahora a meter diseño nomas porfis XD
+    path('reporte', reporte , name="reporte"),
+    path('listadopdf', reportepdf , name="reportepdf"),
+  
     
   
     
