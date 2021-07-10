@@ -9,9 +9,16 @@ from django.http import Http404, request, HttpResponse
 from django.contrib.auth import authenticate, login #autentica usuario
 from django.contrib.auth.decorators import login_required, permission_required
 from django.db import connection #trae la coneccion de la base de datos
+from django.views import View
 import cx_Oracle
-from django.views.generic.base import TemplateView
-from django.views.generic import ListView, View
+
+""" PARA IMPRIMIR PDF """
+import os
+from django.conf import settings
+from django.http import HttpResponse
+from django.template.loader import get_template
+from xhtml2pdf import pisa
+from django.contrib.staticfiles import finders
 
 
 
@@ -358,17 +365,18 @@ def registrar_comedor(nombre_plato,detalle,valor_plato,tipo_servicio):
     cursor.callproc('SP_AGREGAR_COMEDOR',[nombre_plato,detalle,valor_plato,tipo_servicio,salida])     
     return salida.getvalue()
 
-
-class reporte(ListView):
-    model = comedor
-    template_name = "core/reporte.html"
-    context_object_name = 'comedores'
-
-class reportepdf(View):
+class reporte(View):
     def get(self, request, *args, **kwargs):
-        comedores = comedor.objects.all()
-        data = {
-            'comedores' : comedores
-        }
-        pdf = imprimir_pdf('core/listado_reporte.html', data)
-        return HttpResponse(pdf, content_type='Clarita/pdf')
+        template = get_template('core/reporte.html')
+        context = {'title': 'mi primer pdf'}
+        html = template.render(context)
+        response = HttpResponse(content_type='application/pdf')
+        """ response['Content-Disposition'] = 'attachment; filename="report.pdf"' """
+        pisa_status = pisa.CreatePDF(
+            html, dest=response)
+    # if error then show some funy view
+        if pisa_status.err:
+            return HttpResponse('We had some errors <pre>' + html + '</pre>')
+
+        return response
+        

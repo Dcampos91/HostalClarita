@@ -54,7 +54,7 @@
           </ul>
         </div>
       </div>
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      
     </nav>
     
 
@@ -69,13 +69,13 @@
         </thead>
         <tbody>
             {% for c in comedores %}
-            <tr>
-                <td>{{c.id_plato}}</td>
-                <td>{{c.nombre_plato}}</td>
-                <td>{{c.detalle}}</td>
-                <td>{{c.valor_plato}}</td>
-                <td>{{c.tipo_servicio}}</td>
-            </tr>
+              <tr>
+                  <td>{{c.id_plato}}</td>
+                  <td>{{c.nombre_plato}}</td>
+                  <td>{{c.detalle}}</td>
+                  <td>{{c.valor_plato}}</td>
+                  <td>{{c.tipo_servicio}}</td>
+              </tr>
             {% endfor %}
         </tbody>
 

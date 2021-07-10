@@ -23,8 +23,7 @@ urlpatterns = [
     path('reserva-huesped', reserva_huesped, name="reserva_huesped"),
     path('menu-admin', menu_admin, name="menu_admin"),
     path('comedor', comedor , name="comedor"),
-    path('reporte', reporte , name="reporte"),
-    path('listadopdf', reportepdf , name="reportepdf"),
+    path('reporte', reporte.as_view() , name="reporte"),
   
     
   
