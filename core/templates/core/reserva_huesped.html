@@ -81,7 +81,18 @@
             <br>
             <input type="submit" class="btn btn-primary" value="Guardar">
           </form>
-          {{mensaje}}        
+          <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+          {% if messages %}
+            {% for m in messages %}
+              <script>
+                swal.fire({
+                  "title": "Felicitaciones",
+                  "text": "{{m}}",
+                  "icon": "success"
+                })
+            </script>
+            {% endfor %}
+          {% endif %}        
 
     <br>
 

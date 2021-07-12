@@ -122,7 +122,7 @@ def huesped_registro(request):
         if formulario.is_valid():
             formulario.save()
             messages.success(request, "Huesped registrado")
-            return redirect(to='home')  
+            return redirect(to='menu_admin')  
         data["form"] = formulario     
     return render(request, 'core/huesped.html', data)
 
@@ -264,6 +264,7 @@ def reserva_huesped(request):
         check_out = request.POST.get('check_out')
         salida = registrar_reserva(rut_empresa,rut_huesped,id_tipo_habitacion,check_in,check_out)
         if salida == 1:
+            messages.success(request, "agregado correctamente")
             data['mensaje'] = 'agregado correctamente'
             data['listado_huesped'] = listado_huespedes()
         else:
