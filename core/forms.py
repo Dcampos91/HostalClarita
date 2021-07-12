@@ -41,7 +41,7 @@ class OrdenPedidoForm(ModelForm):
 class FacturaForm(ModelForm):
     class Meta:
         model = Factura
-        fields = ["cod_factura","fecha_factura","detalle_factura","valor_factura","valor_iva"]
+        fields = '__all__'
         widgets = {
             'fecha_factura':forms.SelectDateWidget
         }
