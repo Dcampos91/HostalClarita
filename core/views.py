@@ -1,7 +1,7 @@
 from django.db.models.query import QuerySet
 from django.forms.widgets import DateTimeBaseInput
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import TipoHabitacion, Usuario, Pedido, comedor
+from .models import Proveedor, TipoHabitacion, Usuario, Pedido, comedor, reserva
 from .forms import UsuarioForm, CustomUserCreationForm, ClienteForm, HuespedForm, OrdenPedidoForm, HuespedForm, FacturaForm, OrdenCompraForm
 from django.contrib import messages #permite enviar mensajes
 from django.core.paginator import Paginator #para dividir las paginas con los usuarios agregados
@@ -9,7 +9,7 @@ from django.http import Http404, request, HttpResponse
 from django.contrib.auth import authenticate, login #autentica usuario
 from django.contrib.auth.decorators import login_required, permission_required
 from django.db import connection #trae la coneccion de la base de datos
-from django.views import View
+from django.views.generic import View
 import cx_Oracle
 
 """ PARA IMPRIMIR PDF """
@@ -17,7 +17,7 @@ import os
 from django.conf import settings
 from django.http import HttpResponse
 from django.template.loader import get_template
-from xhtml2pdf import pisa
+from xhtml2pdf import context, pisa
 from django.contrib.staticfiles import finders
 
 
@@ -328,6 +328,9 @@ def registrar_reserva(rut_empresa,rut_huesped,id_tipo_habitacion,check_in,check_
 def menu_admin(request):
     return render(request,'core/menuadmin.html')
 
+def menu_reporte(request):
+    return render(request,'core/menureporte.html')
+
 def comedor(request):
     data = {
         'comedor':listar_comedor()
@@ -367,14 +370,47 @@ def registrar_comedor(nombre_plato,detalle,valor_plato,tipo_servicio):
 
 class reporte(View):
     def get(self, request, *args, **kwargs):
-        template = get_template('core/reporte.html')
-        context = {'title': 'mi primer pdf'}
+        template = get_template('reportes/reporte_usuario.html')
+        context = {
+            'usuario': Usuario.objects.all()
+        }
         html = template.render(context)
         response = HttpResponse(content_type='application/pdf')
         """ response['Content-Disposition'] = 'attachment; filename="report.pdf"' """
         pisa_status = pisa.CreatePDF(
             html, dest=response)
-    # if error then show some funy view
+        if pisa_status.err:
+            return HttpResponse('We had some errors <pre>' + html + '</pre>')
+
+        return response
+        
+class reporte_reserva(View):
+    def get(self, request, *args, **kwargs):
+        template = get_template('reportes/reporte_reserva.html')
+        context = {
+            'Reserva': reserva.objects.all()
+        }
+        html = template.render(context)
+        response = HttpResponse(content_type='application/pdf')
+        """ response['Content-Disposition'] = 'attachment; filename="report.pdf"' """
+        pisa_status = pisa.CreatePDF(
+            html, dest=response)
+        if pisa_status.err:
+            return HttpResponse('We had some errors <pre>' + html + '</pre>')
+
+        return response
+
+class reporte_proveedor(View):
+    def get(self, request, *args, **kwargs):
+        template = get_template('reportes/reporte_proveedor.html')
+        context = {
+            'proveedor': Proveedor.objects.all()
+        }
+        html = template.render(context)
+        response = HttpResponse(content_type='application/pdf')
+        """ response['Content-Disposition'] = 'attachment; filename="report.pdf"' """
+        pisa_status = pisa.CreatePDF(
+            html, dest=response)
         if pisa_status.err:
             return HttpResponse('We had some errors <pre>' + html + '</pre>')
 

@@ -244,6 +244,23 @@
             </div>
           </div>
           {% endif %}
+
+          {% if perms.core.view_usuario %}
+          <div class="col-xs-8 col-sm-6 col-md-2" data-aos="zoom-in-up">
+            <div class="image-flip">
+              <div class="mainflip flip-0">
+                <div class="frontside">
+                  <div class="card">
+                    <div class="card-body text-center">
+                      <p><img class="img" src="{% static 'img/reportegeneral.svg' %}" width=150px height=150px alt="card image" id="imgMenu"></p>
+                      <a href="menu_reporte" class="btn btn-primary btn-lg">Menu de Reportes</i></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endif %}
           
 
         </div>
