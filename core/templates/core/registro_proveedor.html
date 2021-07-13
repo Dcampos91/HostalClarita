@@ -50,56 +50,64 @@
         </div>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       </nav>
-       <h1>Registro de Proveedor</h1>
-          <form action=""method="POST">
-            {% csrf_token %}
-            <label for="">rut</label>
-            <input type="text" class="form-control" placeholder="11.111.111-1" name="rut">
-            <br>
-            <label for="">nombre</label>
-            <input type="text" class="form-control"  placeholder="Nombre" name="nombre">
-            <br>
-            <label for="">razon social</label>
-            <input type="text" class="form-control"  placeholder="Razon Social" name="rubro">
-            <br>
-            <label for="">telefono</label>
-            <input type="text" class="form-control"  placeholder="+5691111111" name="telefono">
-            <br>
-            <input type="submit" value="Guardar">
-          </form>
-          <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-          {% if messages %}
-            {% for m in messages %}
-              <script>
-                swal.fire({
-                  "title": "Felicitaciones",
-                  "text": "{{m}}",
-                  "icon": "success"
-                })
-            </script>
-            {% endfor %}
-          {% endif %}        
+      <h1>Registro de Proveedor</h1>
+      <hr>
+      <div class="container">
+        <form action=""method="POST">
+          {% csrf_token %}
+          <label for="">Rut</label>
+          <input type="text" class="form-control" placeholder="11.111.111-1" name="rut">
+          <br>
+          <label for="">Nombre</label>
+          <input type="text" class="form-control"  placeholder="Nombre" name="nombre">
+          <br>
+          <label for="">Razon Social</label>
+          <input type="text" class="form-control"  placeholder="Razon Social" name="rubro">
+          <br>
+          <label for="">Telefono</label>
+          <input type="text" class="form-control"  placeholder="+5691111111" name="telefono">
+          <br>
+          <input type="submit" class="btn btn-success" value="Guardar">
+        </form>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+        {% if messages %}
+          {% for m in messages %}
+            <script>
+              swal.fire({
+                "title": "Felicitaciones",
+                "text": "{{m}}",
+                "icon": "success"
+              })
+          </script>
+          {% endfor %}
+        {% endif %}        
 
-    <br>
-
+        <br>
+        <hr>
         <h2>Listado Proveedor</h2>
-    <table class="table table-striped">
-        <tr>
+        <hr>
+        <table class="table table-striped">
+          <tr>
             <th>Rut Proveedor</th>
             <th>Nombre Proveedor</th>
             <th>Razon Social</th>
             <th>Telefono Proveedor</th>
-        </tr>
-    </tr>
-    {% for p in registro_proveedor %}
-    <tr>
-        <td>{{ p.0 }}</td>
-        <td>{{ p.1 }}</td>
-        <td>{{ p.2 }}</td>
-        <td>{{ p.3 }}</td>             
-    </tr>
-    {% endfor %}
-    </table>
+          </tr>
+        
+          {% for p in registro_proveedor %}
+          <tr>
+            <td>{{ p.0 }}</td>
+            <td>{{ p.1 }}</td>
+            <td>{{ p.2 }}</td>
+            <td>{{ p.3 }}</td>             
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+      <div class="container">
+        <a href="reporte_proveedor" class="btn btn-primary">Imprimir Listado</a>
+      </div>
+          
     <br>
     <footer class="mainfooter">
       <div class="container">

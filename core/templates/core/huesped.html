@@ -1,4 +1,5 @@
 {% load static %}
+{% load crispy_forms_tags %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -51,10 +52,11 @@
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       </nav>
           <h2>Registro Huesped</h2>
+          <hr>
           <form action="" method="POST">
             {% csrf_token %} 
-            <table >
-                {{ form.as_table }}
+            <table  >
+                {{ form | crispy}}
             </table>
             <br>
               <br>

@@ -1,3 +1,4 @@
+import django
 from django.db.models.query import QuerySet
 from django.forms.widgets import DateTimeBaseInput
 from django.shortcuts import render, redirect, get_object_or_404
@@ -182,16 +183,25 @@ def orden_compra(request):
 @permission_required('core.add_cliente')
 def registro_factura(request):
     data = {
-        'form': FacturaForm()
+        'empresa':listado_empresa(),
+        'huesped':listado_huesped(),
+        'habitacion':listado_habitacion(),
+        'listado_huesped':listado_huespedes(),
+        'comedor':listado_comedor()
     }
     if request.method == 'POST':
-        formulario = FacturaForm(data=request.POST)
-        if formulario.is_valid():
-            formulario.save()
-            messages.success(request, "Factura registrada")
-            return redirect(to='home')  
-        data["form"] = formulario     
-    return render(request, 'core/factura.html', data)
+        rut_empresa = request.POST.get('rut empresa') 
+        rut_huesped = request.POST.get('rut huesped') 
+        id_tipo_habitacion = request.POST.get('id tipo habitacion') 
+        id_plato = request.POST.get('id plato')
+        salida = registrar_reserva(rut_empresa,rut_huesped,id_tipo_habitacion,id_plato)
+        if salida == 1:
+            messages.success(request, "agregado correctamente")
+            data['mensaje'] = 'agregado correctamente'
+            data['listado_huesped'] = listado_huespedes()
+        else:
+            data['mensaje'] = 'no se ha guardado'
+    return render(request, 'core/factura.html',data)
 
 def registro_habitacion(request):
     tiphab = TipoHabitacion.objects.all()
@@ -277,6 +287,18 @@ def listado_empresa():
     out_cur = django_cursor.connection.cursor()
 
     cursor.callproc("SP_LISTAR_RUTEMPRESA", [out_cur])
+
+    lista = []
+    for fila in out_cur:
+        lista.append(fila)
+    return lista
+
+def listado_comedor():
+    django_cursor = connection.cursor()
+    cursor = django_cursor.connection.cursor()
+    out_cur = django_cursor.connection.cursor()
+
+    cursor.callproc("SP_LISTAR_COMEDOR", [out_cur])
 
     lista = []
     for fila in out_cur:

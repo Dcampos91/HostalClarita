@@ -56,28 +56,37 @@
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   </nav>
 
+  <br>
       <h1>Listado de habitaciones</h1>
+      <hr>
 
-      
-      <table class="table table-striped">
-        <tr>
-            <th>ID Habitación</th>
-            <th>Detalle Habitación</th>
-            <th>Valor Habitación</th>
-            <th>Tipo Habitación</th>
-            <th>Disponibilidad</th>
+      <div class="container">
+        <table class="table table-striped">
+          <tr>
+              <th>ID Habitación</th>
+              <th>Detalle Habitación</th>
+              <th>Valor Habitación</th>
+              <th>Tipo Habitación</th>
+              <th>Disponibilidad</th>
+  
+          </tr>
+      {% for h in entity %}
+      <tr>
+          <td>{{ h.id_tipo_habitacion }}</td>
+          <td>{{ h.detalle_habitacion }}</td>
+          <td>$ {{ h.valor_habitacion }}</td>
+          <td>{{ h.tipo_hab }}</td>
+          <td></td>             
+      </tr>
+      {% endfor %}
+      </table>
 
-        </tr>
-    {% for h in entity %}
-    <tr>
-        <td>{{ h.id_tipo_habitacion }}</td>
-        <td>{{ h.detalle_habitacion }}</td>
-        <td>$ {{ h.valor_habitacion }}</td>
-        <td>{{ h.tipo_hab }}</td>
-        <td></td>             
-    </tr>
-    {% endfor %}
-    </table>
+      </div>
+     
+    <div class="container">
+      <a href="reporte_reserva" class="btn btn-primary">Imprimir Listado</a>
+    </div>
+    
     <div>
         {% include 'core/paginator.html' %}
     </div>
