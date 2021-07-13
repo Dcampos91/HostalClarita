@@ -365,6 +365,7 @@ def comedor(request):
         tipo_servicio = request.POST.get('servicio') 
         salida = registrar_comedor(nombre_plato,detalle,valor_plato,tipo_servicio)
         if salida == 1:
+            messages.success(request, "agregado correctamente")
             data['mensaje'] = 'agregado correctamente'
             data['comedor'] = listar_comedor()
         else:
