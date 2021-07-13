@@ -27,7 +27,7 @@ urlpatterns = [
     path('reporte', reporte.as_view() , name="reporte"),
     path('reporte_reserva', reporte_reserva.as_view() , name="reporte_reserva"),
     path('reporte_proveedor', reporte_proveedor.as_view() , name="reporte_proveedor"),
-  
+  #sacando  dudas
     
   
     
