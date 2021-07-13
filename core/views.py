@@ -222,12 +222,12 @@ def registro_proveedor(request):
         tel_proveedor = request.POST.get('telefono') 
         salida = agregar_proveedor(rut_proveedor,nom_proveedor,rubro_proveedor,tel_proveedor)
         if salida == 1:
+            messages.success(request, "agregado correctamente")
             data['mensaje'] = 'agregado correctamente'
             data['registro_proveedor'] = listar_proveedor()
         else:
             data['mensaje'] = 'no se ha guardado'
-
-    return render(request, 'core/registro_proveedor.html',data)
+    return render(request, 'core/registro_proveedor.html',data)    
 
 def listar_proveedor():   
     django_cursor = connection.cursor()

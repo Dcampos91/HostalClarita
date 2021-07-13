@@ -56,9 +56,8 @@
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   </nav>
 
-      <h1>Gestión de habitacion</h1>
+      <h1>Listado de habitaciones</h1>
 
-      <h2>Agregar Habitación</h2>
       
       <table class="table table-striped">
         <tr>
@@ -66,15 +65,16 @@
             <th>Detalle Habitación</th>
             <th>Valor Habitación</th>
             <th>Tipo Habitación</th>
+            <th>Disponibilidad</th>
 
         </tr>
-    </tr>
     {% for h in entity %}
     <tr>
         <td>{{ h.id_tipo_habitacion }}</td>
         <td>{{ h.detalle_habitacion }}</td>
-        <td>{{ h.valor_habitacion }}</td>
-        <td>{{ h.tipo_hab }}</td>             
+        <td>$ {{ h.valor_habitacion }}</td>
+        <td>{{ h.tipo_hab }}</td>
+        <td></td>             
     </tr>
     {% endfor %}
     </table>
