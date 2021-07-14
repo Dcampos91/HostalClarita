@@ -71,24 +71,24 @@
             <select name="rut empresa" class="form-select" id="rut empresa">
               <option value="">Seleccionar</option>
               {% for c in empresa %}
-              <option value="{{ c.0 }}">{{ c.0 }}</option>
+              <option value="{{ c.0 }}">{{ c.1 }} - {{c.0}}</option>
               {% endfor %}
             </select>
             <br>
             <div class="mb-3">
-              <label for="exampleFormControlTextarea1" class="form-label">Detalle Factura</label>
-              <textarea class="form-control" id="detalle" rows="3"></textarea>
+              <label class="form-label">Detalle Factura</label>
+              <textarea name="detalle" class="form-control" id="detalle" rows="3"></textarea>
             </div>
             <label for="">Total</label>
             <div class="input-group mb-3">
               <span class="input-group-text">$</span>
-              <input type="number" class="form-control" aria-label="Amount (to the nearest dollar)" id="valor">
+              <input name="valor" type="number" class="form-control"  id="valor">
             </div> 
             <br>
             <label for="">Total Iva</label>
             <div class="input-group mb-3">
               <span class="input-group-text">$</span>
-              <input type="number" class="form-control" id="valor_iva">
+              <input name="valor_iva" type="number" class="form-control" id="valor_iva">
             </div>
             <br>
             <input type="submit" class="btn btn-primary" value="Guardar">  
@@ -100,9 +100,7 @@
       </div>
     </div>
     <br>
-    <div class="container">
-      <a href="#" class="btn btn-primary">Imprimir Listado</a>
-    </div>
+    
 
 
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>

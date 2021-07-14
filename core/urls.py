@@ -22,12 +22,14 @@ urlpatterns = [
     path('registro-proveedor', registro_proveedor, name="registro_proveedor"),
     path('reserva-huesped', reserva_huesped, name="reserva_huesped"),
     path('menu-admin', menu_admin, name="menu_admin"),
+    path('buscar_factura', buscar_factura, name="buscar_factura"),
     path('menu_reporte', menu_reporte, name="menu_reporte"),
     path('comedor', comedor , name="comedor"),
     path('reporte', reporte.as_view() , name="reporte"),
     path('reporte_reserva', reporte_reserva.as_view() , name="reporte_reserva"),
     path('reporte_proveedor', reporte_proveedor.as_view() , name="reporte_proveedor"),
-  #sacando  dudas
+    path('reporte_factura', reporte_factura.as_view() , name="reporte_factura"),
+  
     
   
     

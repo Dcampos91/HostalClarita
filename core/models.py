@@ -235,4 +235,16 @@ class comedor(models.Model):
         managed = True
         db_table = 'comedor'
 
+class Factura_hostal(models.Model):
+    cod_factura = models.AutoField(primary_key=True)
+    fecha_factura = models.DateField()
+    rut_empresa = models.CharField(max_length=100)
+    detalle_factura = models.CharField(max_length=800)
+    valor_factura = models.IntegerField()
+    valor_iva = models.IntegerField()
+
+    class Meta:
+        managed = True
+        db_table = 'factura_hostal'
+
 

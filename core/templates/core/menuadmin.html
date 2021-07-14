@@ -168,6 +168,24 @@
           </div>
           {% endif %}
 
+          {% if perms.core.view_cliente %}
+          <div class="col-xs-8 col-sm-6 col-md-2" data-aos="zoom-in-up">
+            <div class="image-flip">
+              <div class="mainflip flip-0">
+                <div class="frontside">
+                  <div class="card">
+                    <div class="card-body text-center">
+                      <p><img class="img" src="{% static 'img/buscarfactura.svg' %}" width=150px height=150px
+                          alt="card image" id="imgMenu"></p>
+                      <a href="buscar_factura" class="btn btn-primary btn-lg">Buscar factura</i></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endif %}
+
           {% if perms.core.view_pedido %}
           <div class="col-xs-8 col-sm-6 col-md-2" data-aos="zoom-in-up">
             <div class="image-flip">

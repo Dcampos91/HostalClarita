@@ -1,8 +1,10 @@
 import django
+from django.contrib.auth.forms import PasswordResetForm
 from django.db.models.query import QuerySet
 from django.forms.widgets import DateTimeBaseInput
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Proveedor, TipoHabitacion, Usuario, Pedido, comedor, reserva
+from django.views.generic.base import TemplateView
+from .models import Factura_hostal, Proveedor, TipoHabitacion, Usuario, Pedido, comedor, reserva
 from .forms import UsuarioForm, CustomUserCreationForm, ClienteForm, HuespedForm, OrdenPedidoForm, HuespedForm, FacturaForm, OrdenCompraForm
 from django.contrib import messages #permite enviar mensajes
 from django.core.paginator import Paginator #para dividir las paginas con los usuarios agregados
@@ -12,6 +14,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.db import connection #trae la coneccion de la base de datos
 from django.views.generic import View
 import cx_Oracle
+from django.db.models import Q
 
 """ PARA IMPRIMIR PDF """
 import os
@@ -27,6 +30,25 @@ from django.contrib.staticfiles import finders
 #crear vista
 def home(request):#la pagina de inicio
     return render(request,'core/home.html')
+
+def buscar_factura(request):
+    busqueda = request.GET.get("buscar")
+    listado = Factura_hostal.objects.all()
+    if busqueda:
+        listado = Factura_hostal.objects.filter(
+            Q(cod_factura__icontains = busqueda) |#revisa cada uno de los campos del models
+            Q(fecha_factura__icontains = busqueda) |
+            Q(rut_empresa__icontains = busqueda) |
+            Q(detalle_factura__icontains = busqueda) |
+            Q(valor_factura__icontains = busqueda) |
+            Q(valor_iva__icontains = busqueda)
+        ).distinct()
+    
+  
+    return render(request,'core/buscar_factura.html',{'factura':listado})
+
+
+
 @permission_required('core.view_cliente')
 def listado_usuario(request):
     usuario = Usuario.objects.all()
@@ -185,17 +207,17 @@ def registro_factura(request):
     data = {
         'empresa':listado_empresa()
     }
-    if request.method == 'POST':
-        detalle_factura = request.POST.get('detalle') 
-        fecha_factura = request.POST.get('fecha_factura') 
-        valor_factura = request.POST.get('valor') 
-        valor_iva = request.POST.get('valor_iva')
-        CLIENTE_RUT_EMPRESA_ID = request.POST.get('rut empresa')
-        CLIENTE_HOSTAL_CLARITA_RUT82F1 = request.POST.get('rut empresa')
-        salida = registrar_factura(detalle_factura,fecha_factura,valor_factura,valor_iva,CLIENTE_HOSTAL_CLARITA_RUT82F1,CLIENTE_RUT_EMPRESA_ID)
+    if request.method == 'POST': 
+        FECHA_FACTURA = request.POST.get('fecha_factura') 
+        RUT_EMPRESA = request.POST.get('rut empresa')
+        DETALLE_FACTURA = request.POST.get('detalle')
+        VALOR_FACTURA = request.POST.get('valor') 
+        VALOR_IVA = request.POST.get('valor_iva')
+        salida = registrar_factura(FECHA_FACTURA,RUT_EMPRESA,DETALLE_FACTURA,VALOR_FACTURA,VALOR_IVA)
         if salida == 1:
             messages.success(request, "agregado correctamente")
             data['mensaje'] = 'agregado correctamente'
+            data['empresa'] = listado_empresa()
         else:
             data['mensaje'] = 'no se ha guardado'
     return render(request, 'core/factura.html',data)
@@ -255,11 +277,11 @@ def agregar_proveedor(rut_proveedor, nom_proveedor, rubro_proveedor, tel_proveed
     cursor.callproc('SP_AGREGAR_PROVEEDOR',[rut_proveedor,nom_proveedor,rubro_proveedor,tel_proveedor,salida])     
     return salida.getvalue()
 
-def registrar_factura(detalle_factura,fecha_factura,valor_factura,valor_iva,CLIENTE_HOSTAL_CLARITA_RUT82F1,CLIENTE_RUT_EMPRESA_ID):
+def registrar_factura(FECHA_FACTURA,RUT_EMPRESA,DETALLE_FACTURA,VALOR_FACTURA,VALOR_IVA):
     django_cursor = connection.cursor()
     cursor = django_cursor.connection.cursor()
     salida = cursor.var(cx_Oracle.NUMBER)
-    cursor.callproc('SP_REGISTRAR_FACTURA',[detalle_factura,fecha_factura,valor_factura,valor_iva,CLIENTE_HOSTAL_CLARITA_RUT82F1,CLIENTE_RUT_EMPRESA_ID,salida])     
+    cursor.callproc('SP_REGISTRAR_FACTURA',[FECHA_FACTURA,RUT_EMPRESA,DETALLE_FACTURA,VALOR_FACTURA,VALOR_IVA,salida])     
     return salida.getvalue()
 
 def reserva_huesped(request):
@@ -395,6 +417,8 @@ def registrar_comedor(nombre_plato,detalle,valor_plato,tipo_servicio):
     cursor.callproc('SP_AGREGAR_COMEDOR',[nombre_plato,detalle,valor_plato,tipo_servicio,salida])     
     return salida.getvalue()
 
+
+
 class reporte(View):
     def get(self, request, *args, **kwargs):
         template = get_template('reportes/reporte_usuario.html')
@@ -432,6 +456,22 @@ class reporte_proveedor(View):
         template = get_template('reportes/reporte_proveedor.html')
         context = {
             'proveedor': Proveedor.objects.all()
+        }
+        html = template.render(context)
+        response = HttpResponse(content_type='application/pdf')
+        """ response['Content-Disposition'] = 'attachment; filename="report.pdf"' """
+        pisa_status = pisa.CreatePDF(
+            html, dest=response)
+        if pisa_status.err:
+            return HttpResponse('We had some errors <pre>' + html + '</pre>')
+
+        return response
+
+class reporte_factura(View):
+    def get(self, request, *args, **kwargs):
+        template = get_template('reportes/reporte_factura.html')
+        context = {
+            'factura': Factura_hostal.objects.all()
         }
         html = template.render(context)
         response = HttpResponse(content_type='application/pdf')
