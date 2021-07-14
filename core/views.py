@@ -183,22 +183,19 @@ def orden_compra(request):
 @permission_required('core.add_cliente')
 def registro_factura(request):
     data = {
-        'empresa':listado_empresa(),
-        'huesped':listado_huesped(),
-        'habitacion':listado_habitacion(),
-        'listado_huesped':listado_huespedes(),
-        'comedor':listado_comedor()
+        'empresa':listado_empresa()
     }
     if request.method == 'POST':
-        rut_empresa = request.POST.get('rut empresa') 
-        rut_huesped = request.POST.get('rut huesped') 
-        id_tipo_habitacion = request.POST.get('id tipo habitacion') 
-        id_plato = request.POST.get('id plato')
-        salida = registrar_reserva(rut_empresa,rut_huesped,id_tipo_habitacion,id_plato)
+        detalle_factura = request.POST.get('detalle') 
+        fecha_factura = request.POST.get('fecha_factura') 
+        valor_factura = request.POST.get('valor') 
+        valor_iva = request.POST.get('valor_iva')
+        CLIENTE_RUT_EMPRESA_ID = request.POST.get('rut empresa')
+        CLIENTE_HOSTAL_CLARITA_RUT82F1 = request.POST.get('rut empresa')
+        salida = registrar_factura(detalle_factura,fecha_factura,valor_factura,valor_iva,CLIENTE_HOSTAL_CLARITA_RUT82F1,CLIENTE_RUT_EMPRESA_ID)
         if salida == 1:
             messages.success(request, "agregado correctamente")
             data['mensaje'] = 'agregado correctamente'
-            data['listado_huesped'] = listado_huespedes()
         else:
             data['mensaje'] = 'no se ha guardado'
     return render(request, 'core/factura.html',data)
@@ -258,6 +255,12 @@ def agregar_proveedor(rut_proveedor, nom_proveedor, rubro_proveedor, tel_proveed
     cursor.callproc('SP_AGREGAR_PROVEEDOR',[rut_proveedor,nom_proveedor,rubro_proveedor,tel_proveedor,salida])     
     return salida.getvalue()
 
+def registrar_factura(detalle_factura,fecha_factura,valor_factura,valor_iva,CLIENTE_HOSTAL_CLARITA_RUT82F1,CLIENTE_RUT_EMPRESA_ID):
+    django_cursor = connection.cursor()
+    cursor = django_cursor.connection.cursor()
+    salida = cursor.var(cx_Oracle.NUMBER)
+    cursor.callproc('SP_REGISTRAR_FACTURA',[detalle_factura,fecha_factura,valor_factura,valor_iva,CLIENTE_HOSTAL_CLARITA_RUT82F1,CLIENTE_RUT_EMPRESA_ID,salida])     
+    return salida.getvalue()
 
 def reserva_huesped(request):
     data = {

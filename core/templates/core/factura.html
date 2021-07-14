@@ -64,51 +64,35 @@
         <div class="col">
           <form action="" method="POST">
             {% csrf_token %}
+            <label for="">Fecha Factura</label>
+            <input type="date"  class="form-select" name="fecha_factura" id="fecha_factura">
+            <br>
             <label for="">Rut Empresa</label>
-            <select name="rut empresa" class="form-control" id="rut empresa">
+            <select name="rut empresa" class="form-select" id="rut empresa">
               <option value="">Seleccionar</option>
               {% for c in empresa %}
               <option value="{{ c.0 }}">{{ c.0 }}</option>
               {% endfor %}
             </select>
             <br>
-            <label for="">Rut Huesped</label>
-            <select name="rut huesped" class="form-control" id="rut huesped">
-              <option value="">Seleccionar</option>
-              {% for h in huesped %}
-              <option value="{{ h.0 }}">{{ h.0 }}</option>
-              {% endfor %}
-            </select>
+            <div class="mb-3">
+              <label for="exampleFormControlTextarea1" class="form-label">Detalle Factura</label>
+              <textarea class="form-control" id="detalle" rows="3"></textarea>
+            </div>
+            <label for="">Total</label>
+            <div class="input-group mb-3">
+              <span class="input-group-text">$</span>
+              <input type="number" class="form-control" aria-label="Amount (to the nearest dollar)" id="valor">
+            </div> 
             <br>
-            <label for="">Tipo Servicio</label>
-            <select name="id tipo habitacion" class="form-control" id="id tipo habitacion">
-              <option value="">Seleccionar</option>
-              {% for e in habitacion %}
-              <option value="{{ e.0 }}">{{ e.2 }} - {{e.1}}</option>
-              {% endfor %}
-            </select>
+            <label for="">Total Iva</label>
+            <div class="input-group mb-3">
+              <span class="input-group-text">$</span>
+              <input type="number" class="form-control" id="valor_iva">
+            </div>
             <br>
-            <label for="">Comida</label>
-            <select name="id comedor" class="form-control" id="id comedor">
-              <option value="">Seleccionar</option>
-              {% for c in comedor %}
-              <option value="{{ c.0 }}">{{ c.2 }} - {{c.3}}</option>
-              {% endfor %}
-            </select>
-            <br>
+            <input type="submit" class="btn btn-primary" value="Guardar">  
           </form>
-
-
-          <label for="">Total</label>
-          <div class="input-group-prepend">
-            <span class="input-group-text">$ {{c.3}}</span>
-          </div>
-          <br>
-
-          <label for="">Total iva</label>
-          <div class="input-group-prepend">
-            <span class="input-group-text">$</span>
-          </div>
         </div>
         <div class="col-md-auto">
           <p><img class="img" src="{% static 'img/addFactura.svg' %}" width=500px height=400px alt=""></p>
