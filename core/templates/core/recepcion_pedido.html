@@ -9,7 +9,7 @@
       integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'css/style_recepcion.css' %}">
     <link rel="icon" type="image/png" href="{% static 'img/logoHC.png' %}" />
-    <title>Registro Huesped | Hostal Clarita</title>
+    <title>Recepción Pedido | Hostal Clarita</title>
 </head>
 <style>
   ::selection
@@ -57,7 +57,8 @@
       </nav>
           <h2>Listado pedido</h2>  
     
-          <table class="table table-striped">
+          <div class="container">
+            <table class="table table-striped">
               <tr>
                 <th>Fecha Emision</th>
                 <th>Nombre Producto</th>
@@ -70,22 +71,57 @@
                 <td>{{ p.cantidad }}</td> 
               </tr>
               {% endfor %}
-          </table>
-          <div>
-              {% include 'core/paginator.html' %}
+            </table>
+            <div>
+                {% include 'core/paginator.html' %}
+            </div>
+            <br>
+            <hr>
+            <h2>Recepción de pedidos</h2>
+            <form action=""method="POST">
+              {% csrf_token %}
+              <label for="">ID Proveedor</label>
+              <div class="input-group mb-3">
+                <input name="proveedor" type="number" class="form-control" id="proveedor">
+              </div>
+              <label for="">Nombre Producto</label>
+              <div class="input-group mb-3">
+                <input name="nombre" type="number" class="form-control" id="nombre">
+              </div>
+              <label for="">Categoria Producto</label>
+              <div class="input-group mb-3">
+                <input name="categoria" type="number" class="form-control" id="categoria">
+              </div>
+              <label for="">Fecha Vencimiento</label>
+              <div class="input-group mb-3">
+                <input name="vencimiento" type="number" class="form-control" id="vencimiento">
+              </div>
+              <label for="">N° secuencial</label>
+              <div class="input-group mb-3">
+                <input name="secuencial" type="number" class="form-control" id="secuencial">
+              </div>
+              <label for="">SKU</label>
+              <div class="input-group mb-3">
+                <span class="input-group-text">#</span>
+                <input name="sku" type="number" class="form-control" id="sku id">
+              </div>
+              <input type="submit" class="btn btn-primary" value="Guardar">
+            </form>
           </div>
+    
+    
           <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
           {% if messages %}
-              {% for m in messages %}
-                  <script>
-                      swal.fire({
-                          "title": "Felicitaciones",
-                          "text": "{{m}}",
-                          "icon": "success"
-                      })
-                  </script>
-              {% endfor %}
-          {% endif %}
+          {% for m in messages %}
+          <script>
+            swal.fire({
+              "title": "Felicitaciones",
+              "text": "{{m}}",
+              "icon": "success"
+            })
+          </script>
+          {% endfor %}
+          {% endif %}          
     </div>
     <br>
 

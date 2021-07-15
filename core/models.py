@@ -247,4 +247,13 @@ class Factura_hostal(models.Model):
         managed = True
         db_table = 'factura_hostal'
 
-
+class Recepcion_pedido(models.Model):
+    cod_proveedor = models.IntegerField(primary_key=True)
+    nom_producto = models.CharField(max_length=100)
+    categoria_producto = models.IntegerField()
+    fecha_vencimiento = models.IntegerField()
+    numero_secuencial = models.IntegerField()
+    sku = models.IntegerField()
+    class Meta:
+        managed = True
+        db_table = 'recepcion_pedido'

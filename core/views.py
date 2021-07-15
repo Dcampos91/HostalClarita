@@ -36,12 +36,8 @@ def buscar_factura(request):
     listado = Factura_hostal.objects.all()
     if busqueda:
         listado = Factura_hostal.objects.filter(
-            Q(cod_factura__icontains = busqueda) |#revisa cada uno de los campos del models
-            Q(fecha_factura__icontains = busqueda) |
-            Q(rut_empresa__icontains = busqueda) |
-            Q(detalle_factura__icontains = busqueda) |
-            Q(valor_factura__icontains = busqueda) |
-            Q(valor_iva__icontains = busqueda)
+            #revisa cada uno de los campos del models
+            Q(rut_empresa__icontains = busqueda)             
         ).distinct()
     
   
@@ -213,6 +209,25 @@ def registro_factura(request):
         DETALLE_FACTURA = request.POST.get('detalle')
         VALOR_FACTURA = request.POST.get('valor') 
         VALOR_IVA = request.POST.get('valor_iva')
+        salida = registrar_factura(FECHA_FACTURA,RUT_EMPRESA,DETALLE_FACTURA,VALOR_FACTURA,VALOR_IVA)
+        if salida == 1:
+            messages.success(request, "agregado correctamente")
+            data['mensaje'] = 'agregado correctamente'
+            data['empresa'] = listado_empresa()
+        else:
+            data['mensaje'] = 'no se ha guardado'
+    return render(request, 'core/factura.html',data)
+
+def registro_pedido(request):
+    data = {
+        
+    }
+    if request.method == 'POST': 
+        cod_proveedor = request.POST.get('proveedor') 
+        categoria_producto = request.POST.get('categoria')
+        fecha_vencimiento = request.POST.get('vencimiento')
+        numero_secuencial = request.POST.get('secuencial') 
+        sku = request.POST.get('sku')
         salida = registrar_factura(FECHA_FACTURA,RUT_EMPRESA,DETALLE_FACTURA,VALOR_FACTURA,VALOR_IVA)
         if salida == 1:
             messages.success(request, "agregado correctamente")
