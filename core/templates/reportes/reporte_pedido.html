@@ -21,33 +21,25 @@
   }
   </style>
 <body>
-  <div class="container-fluid" id="allpage">  
-    <table class="table">
-      <h1 class="text-center">Lista de Proveedor Hosta Clarita</h1>
-      <hr>
-        <thead>
-            <th>CODIGO Factura </th>
-            <th>Fecha </th>
-            <th>Rut Empresa</th>
-            <th>Detalle</th>
-            <th>Valor Total</th>
-            <th>Valor con IVA</th>
-        </thead>
-        <tbody>
-            {% for f in factura %}
+  <div class="container-fluid" id="allpage">      
+        <div class="container">
+            <table class="table table-striped">
+                <h1>Listado pedido</h1> 
               <tr>
-                  <td>{{f.cod_factura}}</td>
-                  <td>{{f.fecha_factura}}</td>
-                  <td>{{f.rut_empresa}}</td>
-                  <td>{{f.detalle_factura}}</td>
-                  <td>{{f.valor_factura}}</td>
-                  <td>{{f.valor_iva}}</td>
+                <th>Fecha Emision</th>
+                <th>Nombre Producto</th>
+                <th>Cantidad</th>
               </tr>
-            {% endfor %}
-        </tbody>
-  </div>
-
-    </table>
+              {% for p in entity %}
+              <tr>
+                <td>{{ p.fecha_emision_pedido}}</td>
+                <td>{{ p.nombre_producto }}</td>
+                <td>{{ p.cantidad }}</td> 
+              </tr>
+              {% endfor %}
+            </table>
+        </div>
+    </div>
     <br>
     <hr>
 
@@ -88,6 +80,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js"
       integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc"
       crossorigin="anonymous"></script>
-</body>
+  </body>
   
   </html>

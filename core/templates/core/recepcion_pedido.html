@@ -75,40 +75,7 @@
             <div>
                 {% include 'core/paginator.html' %}
             </div>
-            <br>
-            <hr>
-            <h2>Recepción de pedidos</h2>
-            <form action=""method="POST">
-              {% csrf_token %}
-              <label for="">ID Proveedor</label>
-              <div class="input-group mb-3">
-                <input name="proveedor" type="number" class="form-control" id="proveedor">
-              </div>
-              <label for="">Nombre Producto</label>
-              <div class="input-group mb-3">
-                <input name="nombre" type="text" class="form-control" id="nombre">
-              </div>
-              <label for="">Categoria Producto</label>
-              <div class="input-group mb-3">
-                <input name="categoria" type="number" class="form-control" id="categoria">
-              </div>
-              <label for="">Fecha Vencimiento</label>
-              <div class="input-group mb-3">
-                <input name="vencimiento" type="number" class="form-control" id="vencimiento">
-              </div>
-              <label for="">N° secuencial</label>
-              <div class="input-group mb-3">
-                <input name="secuencial" type="number" class="form-control" id="secuencial">
-              </div>
-              <label for="">SKU</label>
-              <div class="input-group mb-3">
-                <span class="input-group-text">#</span>
-                <input name="sku" type="number" class="form-control" id="sku">
-              </div>
-              <input type="submit" class="btn btn-primary" value="Guardar">
-            </form>
-          </div>
-    
+          </div>    
     
           <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
           {% if messages %}

@@ -15,6 +15,7 @@ urlpatterns = [
     path('empresa', nueva_empresa, name="empresa"),
     path('huesped', huesped_registro, name="huesped"),
     path('recepcion-pedido', recepcion_pedido, name="recepcion_pedido"),
+    path('registro-pedido', registro_pedido, name="registro_pedido"),
     path('orden-compra', orden_compra, name="orden_compra"),
     path('orden-pedido', orden_pedido, name="orden_pedido"),
     path('factura-registro', registro_factura, name="factura"),
@@ -29,6 +30,7 @@ urlpatterns = [
     path('reporte_reserva', reporte_reserva.as_view() , name="reporte_reserva"),
     path('reporte_proveedor', reporte_proveedor.as_view() , name="reporte_proveedor"),
     path('reporte_factura', reporte_factura.as_view() , name="reporte_factura"),
+    path('reporte_pedido', reporte_pedido.as_view() , name="reporte_pedido"),
   
     
   

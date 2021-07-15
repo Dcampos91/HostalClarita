@@ -196,7 +196,25 @@
                     <div class="card-body text-center">
                       <p><img class="img" src="{% static 'img/RecePedido.svg' %}" width=150px height=150px
                           alt="card image" id="imgMenu"></p>
-                      <a href="recepcion-pedido" class="btn btn-primary btn-lg">Recepcion Pedido</i></a>
+                      <a href="registro-pedido" class="btn btn-primary btn-lg">Recepcion Pedido</i></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endif %}
+
+          {% if perms.core.view_pedido %}
+          <div class="col-xs-8 col-sm-6 col-md-2" data-aos="zoom-in-up">
+            <div class="image-flip">
+              <div class="mainflip flip-0">
+                <div class="frontside">
+                  <div class="card">
+                    <div class="card-body text-center">
+                      <p><img class="img" src="{% static 'img/listadopedido.svg' %}" width=150px height=150px
+                          alt="card image" id="imgMenu"></p>
+                      <a href="recepcion-pedido" class="btn btn-primary btn-lg">Listado de Pedido</i></a>
                     </div>
                   </div>
                 </div>
@@ -277,6 +295,8 @@
           </div>
           {% endif %}
 
+          <div><br></div>
+
           {% if perms.core.view_usuario %}
           <div class="col-xs-8 col-sm-6 col-md-2" data-aos="zoom-in-up">
             <div class="image-flip">
@@ -294,8 +314,6 @@
             </div>
           </div>
           {% endif %}
-
-          <div><br></div>
 
           {% if perms.core.view_usuario %}
           <div class="col-xs-8 col-sm-6 col-md-2" data-aos="zoom-in-up">

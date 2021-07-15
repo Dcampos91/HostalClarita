@@ -257,3 +257,15 @@ class Recepcion_pedido(models.Model):
     class Meta:
         managed = True
         db_table = 'recepcion_pedido'
+
+class Recepcion_Pedidoh(models.Model):
+    cod_pedido = models.AutoField(primary_key=True)
+    cod_proveedor = models.IntegerField()
+    nom_producto = models.CharField(max_length=100)
+    categoria_producto = models.IntegerField()
+    fecha_vencimiento = models.IntegerField()
+    numero_secuencial = models.IntegerField()
+    sku = models.BigIntegerField()
+    class Meta:
+        managed = True
+        db_table = 'recepcion_pedidoh'

@@ -5,7 +5,7 @@ from django.forms.widgets import DateTimeBaseInput
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic.base import TemplateView
 from .models import Factura_hostal, Proveedor, TipoHabitacion, Usuario, Pedido, comedor, reserva, Recepcion_pedido
-from .forms import UsuarioForm, CustomUserCreationForm, ClienteForm, HuespedForm, OrdenPedidoForm, HuespedForm, FacturaForm, OrdenCompraForm
+from .forms import UsuarioForm, CustomUserCreationForm, ClienteForm, HuespedForm, OrdenPedidoForm, HuespedForm, FacturaForm, OrdenCompraForm,RecepcionPedidoForm
 from django.contrib import messages #permite enviar mensajes
 from django.core.paginator import Paginator #para dividir las paginas con los usuarios agregados
 from django.http import Http404, request, HttpResponse
@@ -219,6 +219,20 @@ def registro_factura(request):
             data['mensaje'] = 'no se ha guardado'
     return render(request, 'core/factura.html',data)
 
+def Agregar_pedido(request):
+    data = {
+        'form':RecepcionPedidoForm()
+    }
+
+    if request.method == 'POST':
+        formulario = RecepcionPedidoForm(request.POST)
+        if formulario.is_valid():
+            formulario.save()
+            messages.success(request, "Pedido Agregado Correctamente")
+            
+
+    return render(request, 'core/recepcion_pedido.html', data)
+
 def registro_pedido(request):
     data = {
         'empresa':listado_empresa()        
@@ -237,7 +251,7 @@ def registro_pedido(request):
             data['empresa'] = listado_empresa()
         else:
             data['mensaje'] = 'no se ha guardado'
-    return render(request, 'core/recepcion_pedido.html',data)
+    return render(request, 'core/registro_pedido.html',data)
 
 def registrar_pedido(COD_PROVEEDOR,NOM_PRODUCTO,CATEGORIA_PRODUCTO,FECHA_VENCIMIENTO,NUMERO_SECUENCIAL,SKU):
     django_cursor = connection.cursor()
@@ -496,6 +510,22 @@ class reporte_factura(View):
         template = get_template('reportes/reporte_factura.html')
         context = {
             'factura': Factura_hostal.objects.all()
+        }
+        html = template.render(context)
+        response = HttpResponse(content_type='application/pdf')
+        """ response['Content-Disposition'] = 'attachment; filename="report.pdf"' """
+        pisa_status = pisa.CreatePDF(
+            html, dest=response)
+        if pisa_status.err:
+            return HttpResponse('We had some errors <pre>' + html + '</pre>')
+
+        return response
+
+class reporte_pedido(View):
+    def get(self, request, *args, **kwargs):
+        template = get_template('reportes/reporte_pedido.html')
+        context = {
+            'entity': Pedido.objects.all()
         }
         html = template.render(context)
         response = HttpResponse(content_type='application/pdf')

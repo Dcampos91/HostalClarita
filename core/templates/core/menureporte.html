@@ -143,6 +143,23 @@
           </div>
           {% endif %} 
 
+          {% if perms.core.add_cliente %}
+          <div class="col-xs-8 col-sm-6 col-md-2" data-aos="zoom-in-up">
+            <div class="image-flip">
+              <div class="mainflip flip-0">
+                <div class="frontside">
+                  <div class="card">
+                    <div class="card-body text-center">
+                      <p><img class="img" src="{% static 'img/reportepedido.svg' %}" width=150px height=150px alt="card image" id="imgMenu"></p>
+                      <a href="reporte_pedido" class="btn btn-primary btn-lg">Reporte Pedido</i></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endif %}
+
         </div>
       </div>
 

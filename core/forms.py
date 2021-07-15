@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ModelForm
-from .models import Usuario, Cliente, TipoUsuario, Huesped, Pedido, Factura, OrdenCompra, TipoHabitacion
+from .models import Usuario, Cliente, TipoUsuario, Huesped, Pedido, Factura, OrdenCompra, TipoHabitacion,Recepcion_Pedidoh
 from django.contrib.auth.forms import UserCreationForm #registro de usuario
 from django.contrib.auth.models import User
 
@@ -59,4 +59,8 @@ class OrdenCompraForm(ModelForm):
 class TipoHabitacionForm(ModelForm):
     class Meta:
         model = TipoHabitacion
+        fields = '__all__'
+class RecepcionPedidoForm(ModelForm):
+    class Meta:
+        model = Recepcion_Pedidoh
         fields = '__all__'
