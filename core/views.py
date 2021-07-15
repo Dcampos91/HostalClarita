@@ -4,7 +4,7 @@ from django.db.models.query import QuerySet
 from django.forms.widgets import DateTimeBaseInput
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic.base import TemplateView
-from .models import Factura_hostal, Proveedor, TipoHabitacion, Usuario, Pedido, comedor, reserva
+from .models import Factura_hostal, Proveedor, TipoHabitacion, Usuario, Pedido, comedor, reserva, Recepcion_pedido
 from .forms import UsuarioForm, CustomUserCreationForm, ClienteForm, HuespedForm, OrdenPedidoForm, HuespedForm, FacturaForm, OrdenCompraForm
 from django.contrib import messages #permite enviar mensajes
 from django.core.paginator import Paginator #para dividir las paginas con los usuarios agregados
@@ -180,7 +180,8 @@ def recepcion_pedido(request):
 
     data ={
         'entity':pedido,
-        'paginator':paginator
+        'paginator':paginator,
+        'registro_proveedor':listar_proveedor()
     }
     return render(request, 'core/recepcion_pedido.html', data)
 
@@ -220,22 +221,30 @@ def registro_factura(request):
 
 def registro_pedido(request):
     data = {
-        
+        'empresa':listado_empresa()        
     }
     if request.method == 'POST': 
-        cod_proveedor = request.POST.get('proveedor') 
-        categoria_producto = request.POST.get('categoria')
-        fecha_vencimiento = request.POST.get('vencimiento')
-        numero_secuencial = request.POST.get('secuencial') 
-        sku = request.POST.get('sku')
-        salida = registrar_factura(FECHA_FACTURA,RUT_EMPRESA,DETALLE_FACTURA,VALOR_FACTURA,VALOR_IVA)
+        COD_PROVEEDOR = request.POST.get('proveedor') 
+        NOM_PRODUCTO = request.POST.get('nombre')
+        CATEGORIA_PRODUCTO = request.POST.get('categoria')
+        FECHA_VENCIMIENTO = request.POST.get('vencimiento')
+        NUMERO_SECUENCIAL = request.POST.get('secuencial') 
+        SKU = request.POST.get('sku')        
+        salida = registrar_pedido(COD_PROVEEDOR,NOM_PRODUCTO,CATEGORIA_PRODUCTO,FECHA_VENCIMIENTO,NUMERO_SECUENCIAL,SKU)
         if salida == 1:
             messages.success(request, "agregado correctamente")
             data['mensaje'] = 'agregado correctamente'
             data['empresa'] = listado_empresa()
         else:
             data['mensaje'] = 'no se ha guardado'
-    return render(request, 'core/factura.html',data)
+    return render(request, 'core/recepcion_pedido.html',data)
+
+def registrar_pedido(COD_PROVEEDOR,NOM_PRODUCTO,CATEGORIA_PRODUCTO,FECHA_VENCIMIENTO,NUMERO_SECUENCIAL,SKU):
+    django_cursor = connection.cursor()
+    cursor = django_cursor.connection.cursor()
+    salida = cursor.var(cx_Oracle.NUMBER)
+    cursor.callproc('SP_AGREGAR_PEDIDO',[COD_PROVEEDOR,NOM_PRODUCTO,CATEGORIA_PRODUCTO,FECHA_VENCIMIENTO,NUMERO_SECUENCIAL,SKU,salida])     
+    return salida.getvalue()
 
 def registro_habitacion(request):
     tiphab = TipoHabitacion.objects.all()
