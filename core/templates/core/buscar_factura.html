@@ -14,7 +14,7 @@
   <title>INICIO | Hostal Clarita</title>
 </head>
 <body>
-    <div class="container-fluid">
+    <div class="container-fluid"> 
       <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light" id="menubar">
         <div class="container-fluid">
           <a class="navbar-brand" href="/"><img src="{% static 'img/logoClarita.png' %}" width="250px" id="logoFront"></a>
@@ -52,19 +52,25 @@
     </nav>
     <h1>Busqueda de Facturas</h1>
     <hr>
-    <form action="" method="GET">
-       <input type="text" class="form-control bg-ligth border-0 small" placeholder="Buscar..." name="buscar">
-       <div class="input-group-append">
-           <button class="btb btn-primary" type="submit">
-               <i class="fas fa-search fa-sm">Buscar</i>
-           </button>
-       </div>
-    </form>
- 
+    <div class="container-fluid" >
+      <div class="row"> 
+        <form action="" method="GET" class="form-inline">
+          <div class="input-group-append">
+            <div class=col-md-2>
+              <input type="text" class="form-control bg-ligth border-0 small" placeholder="Buscar Factura" name="buscar">
+            </div>
+            <br>
+          </div>
+            <button class="btn btn-primary" type="submit">
+              <i class="fas fa-search fa-sm">Buscar</i>
+            </button>
+        </form>
+      </div>
+    </div>
     
     <br>
     <table class="table">
-        <h1 class="text-center">Lista de Proveedor Hosta Clarita</h1>
+        <h1 class="text-center">Lista de facturas Hosta Clarita</h1>
         <hr>
           <thead>
               <th>CODIGO Factura </th>
@@ -92,7 +98,7 @@
     
 
     
-
+    </div>
     <footer class="mainfooter">
       <div class="container">
         <div class="row">
@@ -131,5 +137,6 @@
       integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous">
     </script>
 </body>
+
 
 </html>
