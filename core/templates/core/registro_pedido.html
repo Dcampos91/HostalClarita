@@ -56,76 +56,80 @@
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       </nav>
       
-      <h1>Recepcion de Pedido</h1>
+      <h1 class="text-center">Recepcion de Pedido</h1>
       <hr>
       <div class="container">
-        <form action=""method="POST">
-          {% csrf_token %}
-          <label for="">ID Proveedor</label>
-          <div class="input-group mb-3">
-            <input name="proveedor" type="number" class="form-control" id="proveedor">
-          </div>
-          <label for="">Nombre Producto</label>
-          <div class="input-group mb-3">
-            <input name="nombre" type="text" class="form-control" id="nombre">
-          </div>
-          <label for="">Categoria Producto</label>
-          <div class="input-group mb-3">
-            <input name="categoria" type="number" class="form-control" id="categoria">
-          </div>
-          <label for="">Fecha Vencimiento</label>
-          <div class="input-group mb-3">
-            <input name="vencimiento" type="number" class="form-control" id="vencimiento">
-          </div>
-          <label for="">N° secuencial</label>
-          <div class="input-group mb-3">
-            <input name="secuencial" type="number" class="form-control" id="secuencial">
-          </div>
-          <label for="">SKU</label>
-          <div class="input-group mb-3">
-            <span class="input-group-text">#</span>
-            <input name="sku" type="number" class="form-control" id="sku">
-          </div>
-          <input type="submit" class="btn btn-primary" value="Guardar">
-        </form>
-        <br>
-        <hr>
-        <h2>Tabla de Ayuda</h2>
-        <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">ID Proveedores</th>
-                <th scope="col">Categoria Producto</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th scope="row">666</th>
-                <td>Limpieza 001</td>
-              </tr>
-              <tr>
-                <th scope="row">555</th>
-                <td>Comida 002</td>
-              </tr>
-              <tr>
-                <th scope="row">111</th>
-                <td>Articulos de oficina 003</td>
-              </tr>
-              <tr>
-                <th scope="row">222</th>
-                <td>Articulos Para El hogar  004</td>
-              </tr>
-              <tr>
-                <th scope="row">333</th>
-                <td>Electricidad 005</td>
-              </tr>
-              <tr>
-                <th scope="row">444</th>
-                <td>Decoracion 006</td>
-              </tr>
-            </tbody>
-          </table>
+        <div class="row" >
+        <div class="col-md-5">
+          <form action=""method="POST">
+            {% csrf_token %}
+            <label for="">ID Proveedor</label>
+            <div class="input-group mb-3">
+              <input name="proveedor" type="number" class="form-control" id="proveedor">
+            </div>
+            <label for="">Nombre Producto</label>
+            <div class="input-group mb-3">
+              <input name="nombre" type="text" class="form-control" id="nombre">
+            </div>
+            <label for="">Categoria Producto</label>
+            <div class="input-group mb-3">
+              <input name="categoria" type="number" class="form-control" id="categoria">
+            </div>
+            <label for="">Fecha Vencimiento</label>
+            <div class="input-group mb-3">
+              <input name="vencimiento" type="number" class="form-control" id="vencimiento">
+            </div>
+            <label for="">N° secuencial</label>
+            <div class="input-group mb-3">
+              <input name="secuencial" type="number" class="form-control" id="secuencial">
+            </div>
+            <label for="">SKU</label>
+            <div class="input-group mb-3">
+              <span class="input-group-text">#</span>
+              <input name="sku" type="number" class="form-control" id="sku">
+            </div>
+            <input type="submit" class="btn btn-primary" value="Guardar">
+          </form>
+        </div>
+        <div class="col-md-2 "></div>
+        <div class=" card col-md-5">
+          <h2 class="text-center">Tabla de Ayuda</h2>
+          <table class="table">
+              <thead>
+                <tr>
+                  <th class="text-center" scope="col">ID Proveedores</th>
+                  <th class="text-center" scope="col">Categoria Producto</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th class="text-center"scope="row">666</th>
+                  <td class="text-center">Limpieza 001</td>
+                </tr>
+                <tr>
+                  <th class="text-center" scope="row">555</th>
+                  <td class="text-center" >Comida 002</td>
+                </tr>
+                <tr>
+                  <th class="text-center" scope="row">111</th>
+                  <td class="text-center">Articulos de oficina 003</td>
+                </tr>
+                <tr>
+                  <th class="text-center" scope="row">222</th>
+                  <td class="text-center" >Articulos Para El hogar  004</td>
+                </tr>
+                <tr>
+                  <th class="text-center" scope="row">333</th>
+                  <td class="text-center" >Electricidad 005</td>
+                </tr>
+                <tr>
+                  <th class="text-center" scope="row">444</th>
+                  <td class="text-center" >Decoracion 006</td>
+                </tr>
+              </tbody>
+            </table>
       </div>
+    </div>
       <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
       {% if messages %}
       {% for m in messages %}

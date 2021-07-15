@@ -50,54 +50,55 @@
         </div>
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     </nav>
-    <h1>Busqueda de Facturas</h1>
+    <h1 class="text-center">Busqueda de Facturas</h1>
     <hr>
     <div class="container-fluid" >
+      <br>
       <div class="row"> 
-        <form action="" method="GET" class="form-inline">
-          <div class="input-group-append">
-            <div class=col-md-2>
-              <input type="text" class="form-control bg-ligth border-0 small" placeholder="Buscar Factura" name="buscar">
+        <div class="col-md-4">
+          <form action="" method="GET" class="form-inline">
+            <div class="input-group-append">
+              <div class=col-md-6>
+                <input type="text" class="form-control bg-ligth border-0 small" placeholder="Buscar Factura" name="buscar">
+              </div>
+              <br>
             </div>
-            <br>
-          </div>
-            <button class="btn btn-primary" type="submit">
-              <i class="fas fa-search fa-sm">Buscar</i>
-            </button>
-        </form>
-      </div>
-    </div>
-    
-    <br>
-    <table class="table">
-        <h1 class="text-center">Lista de facturas Hosta Clarita</h1>
-        <hr>
-          <thead>
-              <th>CODIGO Factura </th>
+              <button class="btn btn-primary" type="submit">
+                <i class="fas fa-search fa-sm">Buscar</i>
+              </button>
+          </form>
+        </div>
+        <br>
+        <div class=" card col-md-8">
+          <table class="table">
+            <h1 class="text-center">Lista de facturas Hosta Clarita</h1>
+            <hr>
+            <thead>
+              <th>Codigo Factura </th>
               <th>Fecha </th>
               <th>Rut Empresa</th>
               <th>Detalle</th>
               <th>Valor Total</th>
               <th>Valor con IVA</th>
-          </thead>
-          <tbody>
+            </thead>
+            <tbody>
               {% for f in factura%}
-                <tr>
-                    <td>{{f.cod_factura}}</td>
-                    <td>{{f.fecha_factura}}</td>
-                    <td>{{f.rut_empresa}}</td>
-                    <td>{{f.detalle_factura}}</td>
-                    <td>$ {{f.valor_factura}}</td>
-                    <td>$ {{f.valor_iva}}</td>
-                </tr>
+              <tr>
+                <td>{{f.cod_factura}}</td>
+                <td>{{f.fecha_factura}}</td>
+                <td>{{f.rut_empresa}}</td>
+                <td>{{f.detalle_factura}}</td>
+                <td>$ {{f.valor_factura}}</td>
+                <td>$ {{f.valor_iva}}</td>
+              </tr>
               {% endfor %}
-          </tbody>
-  
-      </table>
-
-    
-
-    
+            </tbody>
+            
+          </table>
+        </div>
+      </div>
+    </div>
+    <br>  
     </div>
     <footer class="mainfooter">
       <div class="container">

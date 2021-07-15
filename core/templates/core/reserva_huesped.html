@@ -50,37 +50,74 @@
         </div>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       </nav>
-       <h1>Reserva Huesped</h1>
-          <form action=""method="POST">
-            {% csrf_token %}
-            <label for="">Rut Empresa</label>
-            <select name="rut empresa" class="form-control" id="rut empresa">
-                <option value="">Seleccionar</option>
-                {% for c in empresa %}
-                    <option value="{{ c.0 }}">{{ c.0 }}</option>
-                {% endfor %}
-            </select>
-            <label for="">Rut Huesped</label>
-            <select name="rut huesped" class="form-control" id="rut huesped">
-                <option value="">Seleccionar</option>
-                {% for h in huesped %}
-                    <option value="{{ h.0 }}">{{ h.0 }}</option>
-                {% endfor %}
-            </select>
-            <label for="">Tipo Servicio</label>
-            <select name="id tipo habitacion" class="form-control" id="id tipo habitacion">
-                <option value="">Seleccionar</option>
-                {% for e in habitacion %}
-                    <option value="{{ e.0 }}">{{ e.2 }} - {{e.1}}</option>
-                {% endfor %}
-            </select>
-            <label for="">Check IN</label>
-            <input type="date"  class="form-control" name="check_in" id="check_in">
-            <label for="">Check OUT</label>
-            <input type="date"  class="form-control" name="check_out" id="check_out">
-            <br>
-            <input type="submit" class="btn btn-primary" value="Guardar">
-          </form>
+       <h1 class="text-center">Reserva Huesped</h1>
+       <hr>
+       <div class="container">
+         <div class="row">
+           <div class="col-md-4">
+              <form action=""method="POST">
+                {% csrf_token %}
+                <label for="">Rut Empresa</label>
+                <select name="rut empresa" class="form-control" id="rut empresa">
+                    <option value="">Seleccionar</option>
+                    {% for c in empresa %}
+                        <option value="{{ c.0 }}">{{ c.0 }}</option>
+                    {% endfor %}
+                </select>
+                <label for="">Rut Huesped</label>
+                <select name="rut huesped" class="form-control" id="rut huesped">
+                    <option value="">Seleccionar</option>
+                    {% for h in huesped %}
+                        <option value="{{ h.0 }}">{{ h.0 }}</option>
+                    {% endfor %}
+                </select>
+                <label for="">Tipo Servicio</label>
+                <select name="id tipo habitacion" class="form-control" id="id tipo habitacion">
+                    <option value="">Seleccionar</option>
+                    {% for e in habitacion %}
+                        <option value="{{ e.0 }}">{{ e.2 }} - {{e.1}}</option>
+                    {% endfor %}
+                </select>
+                <label for="">Check IN</label>
+                <input type="date"  class="form-control" name="check_in" id="check_in">
+                <label for="">Check OUT</label>
+                <input type="date"  class="form-control" name="check_out" id="check_out">
+                <br>
+                <input type="submit" class="btn btn-primary" value="Guardar">
+              </form>
+            </div>
+            <div class="col-md-1"></div>
+            <div class=" card col-md-7">
+              <h2 class="text-center">Listado Huesped</h2>
+              <hr>
+                <table class="table table-striped">
+                  <tr>
+                      <th>ID Reserva</th>
+                      <th>Rut Empresa</th>
+                      <th>Rut Huesped</th>
+                      <th>ID Tipo Habitación</th>
+                      <th>Check In</th>
+                      <th>Check Out</th>
+                  </tr>
+                  </tr>
+                    {% for r in listado_huesped %}
+                    <tr>
+                        <td>{{ r.0 }}</td>
+                        <td>{{ r.1 }}</td>
+                        <td>{{ r.2 }}</td>
+                        <td>{{ r.3 }}</td> 
+                        <td>{{ r.4 }}</td>
+                        <td>{{ r.5 }}</td>            
+                    </tr>
+                    {% endfor %}
+              </table>
+
+
+            </div>
+
+
+          </div>
+        </div>
           <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
           {% if messages %}
             {% for m in messages %}
@@ -96,28 +133,6 @@
 
     <br>
 
-        <h2>Listado Huesped</h2>
-    <table class="table table-striped">
-        <tr>
-            <th>ID Reserva</th>
-            <th>Rut Empresa</th>
-            <th>Rut Huesped</th>
-            <th>ID Tipo Habitación</th>
-            <th>Check In</th>
-            <th>Check Out</th>
-        </tr>
-    </tr>
-    {% for r in listado_huesped %}
-    <tr>
-        <td>{{ r.0 }}</td>
-        <td>{{ r.1 }}</td>
-        <td>{{ r.2 }}</td>
-        <td>{{ r.3 }}</td> 
-        <td>{{ r.4 }}</td>
-        <td>{{ r.5 }}</td>            
-    </tr>
-    {% endfor %}
-    </table>
     <br>
     <footer class="mainfooter">
       <div class="container">

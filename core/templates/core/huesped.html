@@ -51,18 +51,24 @@
         </div>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       </nav>
-          <h2>Registro Huesped</h2>
+          <h2 class="text-center">Registro Huesped</h2>
           <hr>
-          <form action="" method="POST">
-            {% csrf_token %} 
-            <table  >
-                {{ form | crispy}}
-            </table>
-            <br>
-              <br>
-              <button type="submit" class="btn btn-success">Agregar</button>
-              <button type="reset" class="btn btn-primary">Limpiar</button>
-          </form>
+          <div class="container">
+              <div class="row">
+              <div class=col-md-6>
+                <form action="" method="POST">
+                  {% csrf_token %} 
+                  <table  >
+                      {{ form | crispy}}
+                  </table>
+                  <br>
+                    <br>
+                    <button type="submit" class="btn btn-success">Agregar</button>
+                    <button type="reset" class="btn btn-primary">Limpiar</button>
+                </form>
+              </div>
+            </div>
+          </div>
     
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     {% if messages %}
