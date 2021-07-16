@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
       integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'css/style_recepcion.css' %}">
@@ -65,7 +66,7 @@
             {% csrf_token %}
             <label for="">ID Proveedor</label>
             <div class="input-group mb-3">
-              <input name="proveedor" type="number" class="form-control" id="proveedor">
+              <input name="proveedor" type="text" class="form-control" id="proveedor" onChange="skuScript();">
             </div>
             <label for="">Nombre Producto</label>
             <div class="input-group mb-3">
@@ -73,20 +74,20 @@
             </div>
             <label for="">Categoria Producto</label>
             <div class="input-group mb-3">
-              <input name="categoria" type="number" class="form-control" id="categoria">
+              <input name="categoria" type="text" class="form-control" id="categoria" onChange="skuScript();">
             </div>
             <label for="">Fecha Vencimiento</label>
             <div class="input-group mb-3">
-              <input name="vencimiento" type="number" class="form-control" id="vencimiento">
+              <input name="vencimiento" type="number" class="form-control" id="vencimiento" onChange="skuScript();">
             </div>
             <label for="">N° secuencial</label>
             <div class="input-group mb-3">
-              <input name="secuencial" type="number" class="form-control" id="secuencial">
+              <input name="secuencial" type="text" class="form-control" id="secuencial" onChange="skuScript();">
             </div>
             <label for="">SKU</label>
             <div class="input-group mb-3">
               <span class="input-group-text">#</span>
-              <input name="sku" type="number" class="form-control" id="sku">
+              <input name="sku" type="text" class="form-control" id="sku" readonly>
             </div>
             <input type="submit" class="btn btn-primary" value="Guardar">
           </form>
@@ -144,6 +145,17 @@
       {% endif %}          
 </div>
 <br>
+
+<script> 
+  function skuScript(){
+    var proveedor1 = $("input[name=proveedor]").val();
+    var categoria1 = $("input[name=categoria]").val();
+    var vencimiento1 = $("input[name=vencimiento]").val();
+    var secuencial1 = $("input[name=secuencial]").val();
+    $("input[name=sku]").val((proveedor1)+(categoria1)+(vencimiento1)+(secuencial1));
+     
+  }
+</script>
 
 <footer class="mainfooter">
   <div class="container">
