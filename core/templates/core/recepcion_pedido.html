@@ -56,22 +56,31 @@
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       </nav>
           <h2 class="text-center" >Listado pedido</h2>  
-    
+          <hr>
+          <br>
           <div class="container">
-            <table class="table table-striped">
-              <tr>
-                <th>Fecha Emision</th>
-                <th>Nombre Producto</th>
-                <th>Cantidad</th>
-              </tr>
-              {% for p in entity %}
-              <tr>
-                <td>{{ p.fecha_emision_pedido}}</td>
-                <td>{{ p.nombre_producto }}</td>
-                <td>{{ p.cantidad }}</td> 
-              </tr>
-              {% endfor %}
-            </table>
+            <div class="row">
+              <div class="col">
+                <table class="table table-striped">
+                  <tr>
+                    <th>Fecha Emision</th>
+                    <th>Nombre Producto</th>
+                    <th>Cantidad</th>
+                  </tr>
+                  {% for p in entity %}
+                  <tr>
+                    <td>{{ p.fecha_emision_pedido}}</td>
+                    <td>{{ p.nombre_producto }}</td>
+                    <td>{{ p.cantidad }}</td> 
+                  </tr>
+                  {% endfor %}
+                </table>
+              </div>
+              <div class="col-md-auto">
+                <br>
+                <p><img class="img" src="{% static 'img/listadopedido.svg' %}"  height=300px alt=""></p>
+              </div>
+            </div>
             <div>
                 {% include 'core/paginator.html' %}
             </div>
@@ -90,8 +99,7 @@
           {% endfor %}
           {% endif %}          
     </div>
-    <br>
-
+    <br><br><br><br><br><br><br><br>
     <footer class="mainfooter">
       <div class="container">
         <div class="row">
