@@ -187,7 +187,7 @@
           {% endif %}
           <div><br></div>
 
-          {% if perms.core.view_pedido %}
+          {% if perms.core.view_cliente %}
           <div class="col-xs-8 col-sm-6 col-md-2" data-aos="zoom-in-up">
             <div class="image-flip">
               <div class="mainflip flip-0">
@@ -322,9 +322,9 @@
                 <div class="frontside">
                   <div class="card">
                     <div class="card-body text-center">
-                      <p><img class="img" src="{% static 'img/reportegeneral.svg' %}" width=150px height=150px
+                      <p><img class="img" src="{% static 'img/food.svg' %}" width=150px height=150px
                           alt="card image" id="imgMenu"></p>
-                      <a href="menu_reporte" class="btn btn-primary btn-lg">Menu de Reportes</i></a>
+                      <a href="comedor" class="btn btn-primary btn-lg">Menu de comedor</i></a>
                     </div>
                   </div>
                 </div>
@@ -340,9 +340,9 @@
                 <div class="frontside">
                   <div class="card">
                     <div class="card-body text-center">
-                      <p><img class="img" src="{% static 'img/food.svg' %}" width=150px height=150px
+                      <p><img class="img" src="{% static 'img/reportegeneral.svg' %}" width=150px height=150px
                           alt="card image" id="imgMenu"></p>
-                      <a href="comedor" class="btn btn-primary btn-lg">Menu de comedor</i></a>
+                      <a href="menu_reporte" class="btn btn-primary btn-lg">Menu de Reportes</i></a>
                     </div>
                   </div>
                 </div>
@@ -350,6 +350,22 @@
             </div>
           </div>
           {% endif %}
+
+          <div class="col-xs-8 col-sm-6 col-md-2" data-aos="zoom-in-up">
+            <div class="image-flip">
+              <div class="mainflip flip-0">
+                <div class="frontside">
+                  <div class="card">
+                    <div class="card-body text-center">
+                      <p><img class="img" src="{% static 'img/manual.svg' %}" width=150px height=150px
+                          alt="card image" id="imgMenu"></p>
+                      <a href="menu_manual" class="btn btn-primary btn-lg">Manuales Hostal Clarita</i></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
           <div><br></div>
         </div>
       </div>

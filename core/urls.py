@@ -25,6 +25,14 @@ urlpatterns = [
     path('menu-admin', menu_admin, name="menu_admin"),
     path('buscar_factura', buscar_factura, name="buscar_factura"),
     path('menu_reporte', menu_reporte, name="menu_reporte"),
+    path('menu_manual', menu_manual, name="menu_manual"),
+
+    path('manual_admin', manual_admin, name="manual_admin"),
+    path('manual_cliente', manual_cliente, name="manual_cliente"),
+    path('manual_empleado', manual_empleado, name="manual_empleado"),
+    path('manual_proveedor', manual_proveedor, name="manual_proveedor"),
+    path('manual_sistema', manual_sistema, name="manual_sistema"),
+    
     path('comedor', comedor , name="comedor"),
     path('reporte', reporte.as_view() , name="reporte"),
     path('reporte_reserva', reporte_reserva.as_view() , name="reporte_reserva"),

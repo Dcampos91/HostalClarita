@@ -417,6 +417,19 @@ def menu_admin(request):
 def menu_reporte(request):
     return render(request,'core/menureporte.html')
 
+def menu_manual(request):
+    return render(request,'core/menumanual.html')
+def manual_admin(request):
+    return render(request,'manual/admi.html')
+def manual_cliente(request):
+    return render(request,'manual/cliente.html')
+def manual_empleado(request):
+    return render(request,'manual/empleado.html')
+def manual_proveedor(request):
+    return render(request,'manual/proveedor.html')
+def manual_sistema(request):
+    return render(request,'manual/sistema.html')
+
 def comedor(request):
     data = {
         'comedor':listar_comedor()
