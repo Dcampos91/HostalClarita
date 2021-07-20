@@ -74,10 +74,11 @@
       <div class="container">
 
         <h5 class="section-title h1 text-center">Menú Hostal Clarita</h5>
+        <a href="menu_manual" class="btn btn-outline-success btn-lg">Manuales de usuarios</a>
         <hr>
         <div class="row">
           <!-- VISTA EMPLEADO -->
-          {% if perms.core.add_cliente %}
+          {% if perms.core.add_usuario %}
           <div class="col-xs-8 col-sm-6 col-md-2" data-aos="zoom-in-up">
             <div class="image-flip">
               <div class="mainflip flip-0">
@@ -122,7 +123,7 @@
                     <div class="card-body text-center">
                       <p><img class="img" src="{% static 'img/RegHuesped.svg' %}" width=150px height=150px
                           alt="card image" id="imgMenu"></p>
-                      <a href="reserva-huesped" class="btn btn-primary btn-lg">Reserva Huesped</i></a>
+                      <a href="reserva-huesped" class="btn btn-primary btn-lg">Reserva Habitacion</i></a>
                     </div>
                   </div>
                 </div>
@@ -150,7 +151,7 @@
           {% endif %}
 
 
-          {% if perms.core.view_cliente %}
+          {% if perms.core.view_bodega %}
           <div class="col-xs-8 col-sm-6 col-md-2" data-aos="zoom-in-up">
             <div class="image-flip">
               <div class="mainflip flip-0">
@@ -187,7 +188,7 @@
           {% endif %}
           <div><br></div>
 
-          {% if perms.core.view_cliente %}
+          {% if perms.core.view_bodega %}
           <div class="col-xs-8 col-sm-6 col-md-2" data-aos="zoom-in-up">
             <div class="image-flip">
               <div class="mainflip flip-0">
@@ -259,7 +260,7 @@
           </div>
           {% endif %}
 
-          {% if perms.core.view_usuario %}
+          {% if perms.core.view_bodega %}
           <div class="col-xs-8 col-sm-6 col-md-2" data-aos="zoom-in-up">
             <div class="image-flip">
               <div class="mainflip flip-0">
@@ -351,7 +352,7 @@
           </div>
           {% endif %}
 
-          <div class="col-xs-8 col-sm-6 col-md-2" data-aos="zoom-in-up">
+<!--           <div class="col-xs-8 col-sm-6 col-md-2" data-aos="zoom-in-up">
             <div class="image-flip">
               <div class="mainflip flip-0">
                 <div class="frontside">
@@ -365,7 +366,7 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
           <div><br></div>
         </div>
       </div>

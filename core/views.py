@@ -195,7 +195,7 @@ def orden_compra(request):
         if formulario.is_valid():
             formulario.save()
             messages.success(request, "Orden registrada")
-            return redirect(to='home')  
+            return redirect(to='orden_pedido')  
         data["form"] = formulario     
     return render(request, 'core/orden_compra.html', data)
 
